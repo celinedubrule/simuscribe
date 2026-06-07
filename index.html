@@ -255,9 +255,9 @@
                 <span>SimuScribe Suite</span>
             </div>
             <ul class="nav-links">
-                <li id="nav-dashboard" class="nav-item active" onclick="switchView('dashboard')">📊 Core Dashboard</li>
-                <li id="nav-matrix" class="nav-item" onclick="switchView('matrix')">📋 Mapped Matrix <span>600</span></li>
-                <li id="nav-lms" class="nav-item" onclick="switchView('lms')">⚙️ LMS Integration</li>
+                <li class="nav-item active" onclick="switchView('dashboard', this)">📊 Core Dashboard</li>
+                <li class="nav-item" onclick="switchView('matrix', this)">📋 Mapped Matrix <span>600</span></li>
+                <li class="nav-item" onclick="switchView('lms', this)">⚙️ LMS Integration</li>
             </ul>
         </div>
         <div class="sidebar-footer">
@@ -298,4 +298,103 @@
                 <div class="table-controls">
                     <h3 style="margin: 0; font-size: 1.1rem;">Active Operational Overview</h3>
                 </div>
-                <div style="padding: 2rem
+                <div style="padding: 2rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">
+                    Welcome to the <strong>SimuScribe Administrative Suite</strong>. The background collection phase has successfully completed all target vectors. The system has preserved 600 unique, variable-adjusted clinical simulation configurations across 5 academic stream matrices. Use the sidebar controls on the left to navigate your curriculum modules or trigger a direct procurement request.
+                </div>
+            </div>
+        </div>
+
+        <div id="view-matrix" class="view-content">
+            <div class="table-container">
+                <div class="table-controls">
+                    <h3 style="margin: 0; font-size: 1.1rem;">Simulated Matrix Logs (Sample Stream)</h3>
+                    <input type="text" class="search-input" placeholder="Search across 600 records..." disabled value="Filter locked in preview mode">
+                </div>
+                <table class="app-table">
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Clinical Discipline</th>
+                            <th>Complexity Level</th>
+                            <th>Modifier Applied</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>#IM-204</td>
+                            <td>Internal Medicine</td>
+                            <td><span class="tag tag-blue">Tier 1 (Foundation)</span></td>
+                            <td>Vague Historian</td>
+                            <td style="color: var(--accent-green);">✓ Verified Asset</td>
+                        </tr>
+                        <tr>
+                            <td>#EM-412</td>
+                            <td>Emergency Medicine</td>
+                            <td><span class="tag tag-purple">Tier 3 (Advanced)</span></td>
+                            <td>Hostile Accompanying Family</td>
+                            <td style="color: var(--accent-green);">✓ Verified Asset</td>
+                        </tr>
+                        <tr>
+                            <td>#PED-089</td>
+                            <td>Pediatrics</td>
+                            <td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td>
+                            <td>Language / Interpreter Barrier</td>
+                            <td style="color: var(--accent-green);">✓ Verified Asset</td>
+                        </tr>
+                        <tr>
+                            <td>#OB-114</td>
+                            <td>Obstetrics & Gynecology</td>
+                            <td><span class="tag tag-blue">Tier 1 (Foundation)</span></td>
+                            <td>High-Anxiety Management</td>
+                            <td style="color: var(--accent-green);">✓ Verified Asset</td>
+                        </tr>
+                        <tr>
+                            <td>#SURG-501</td>
+                            <td>Surgery & Orthopedics</td>
+                            <td><span class="tag tag-purple">Tier 3 (Advanced)</span></td>
+                            <td>Complex Cardiovascular Comorbidity</td>
+                            <td style="color: var(--accent-green);">✓ Verified Asset</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="view-lms" class="view-content">
+            <div class="table-container" style="padding: 2rem;">
+                <h3 style="margin-top: 0; font-size: 1.25rem;">Native Platform Integration Schemas</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">The complete 600-case dataset is fully formatted to match row templates for native LMS injection methods:</p>
+                <ul style="color: var(--text-muted); line-height: 2; font-size: 0.95rem; padding-left: 1.25rem;">
+                    <li><strong>Canvas LMS:</strong> Comma-Separated Canvas Quizzing/Assignment Blocks</li>
+                    <li><strong>Moodle / Blackboard:</strong> Question Bank Standard CSV Upload Formatting</li>
+                    <li><strong>Simulation Centers:</strong> Structured Raw Patient Record Script Layouts</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchView(viewId, clickedElement) {
+            // Deactivate all content views safely
+            var views = document.querySelectorAll('.view-content');
+            for (var i = 0; i < views.length; i++) {
+                views[i].classList.remove('active-view');
+            }
+            
+            // Remove active style from all nav buttons safely
+            var items = document.querySelectorAll('.nav-item');
+            for (var j = 0; j < items.length; j++) {
+                items[j].classList.remove('active');
+            }
+            
+            // Activate target view content panel
+            document.getElementById('view-' + viewId).classList.add('active-view');
+            
+            // Add active class directly to the clicked element
+            clickedElement.classList.add('active');
+        }
+    </script>
+
+</body>
+</html>

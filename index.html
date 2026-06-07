@@ -23,7 +23,7 @@
         header {
             max-width: 1100px;
             margin: 0 auto;
-            padding: 5rem 2rem 3rem 2rem;
+            padding: 4rem 2rem 2rem 2rem;
             text-align: center;
         }
         .badge {
@@ -37,7 +37,7 @@
             letter-spacing: 0.05em;
         }
         h1 {
-            font-size: 3.5rem;
+            font-size: 3rem;
             font-weight: 800;
             margin: 1.5rem 0 1rem 0;
             letter-spacing: -0.02em;
@@ -55,7 +55,7 @@
         }
         .btn {
             display: inline-block;
-            padding: 0.85rem 2rem;
+            padding: 0.75rem 1.5rem;
             border-radius: 0.5rem;
             font-weight: 600;
             text-decoration: none;
@@ -64,15 +64,21 @@
         .btn-primary {
             background-color: var(--accent);
             color: white;
-            box-shadow: 0 4px 14px 0 rgba(59, 130, 246, 0.3);
         }
         .btn-primary:hover {
             background-color: #2563eb;
-            transform: translateY(-1px);
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid #475569;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.05);
         }
         .matrix-container {
             max-width: 1100px;
-            margin: 2rem auto 4rem auto;
+            margin: 4rem auto;
             padding: 0 2rem;
         }
         .matrix-header {
@@ -113,16 +119,6 @@
             display: flex;
             justify-content: space-between;
         }
-        .delivery-note {
-            background-color: rgba(30, 41, 59, 0.5);
-            border: 1px dashed #475569;
-            border-radius: 0.5rem;
-            padding: 1rem;
-            margin-top: 2rem;
-            text-align: center;
-            color: var(--text-muted);
-            font-size: 0.95rem;
-        }
         footer {
             text-align: center;
             padding: 4rem 2rem;
@@ -136,70 +132,67 @@
 <body>
 
     <header>
-        <span class="badge">Institutional Curriculum Licensing</span>
+        <span class="badge">B2B Curriculum Licensing</span>
         <h1>SimuScribe Master Engine</h1>
-        <p class="subtitle">A mathematically balanced dataset of 600 accredited-grade clinical simulation scenarios. Engineered for turnkey LMS deployment to train diagnostic precision and charting efficiency.</p>
+        <p class="subtitle">A mathematically balanced matrix of 600 accredited-grade clinical simulation scenarios designed to train diagnostic precision and charting efficiency.</p>
         <div class="cta-group">
-            <a href="mailto:celine.bayliss@gmail.com?subject=SimuScribe%20Curriculum%20Inquiry%20%2F%20Demo%20Request" class="btn btn-primary">Request Institutional Dataset & Demo</a>
+            <a href="https://simuscribe-cases.emergent.host" class="btn btn-primary" target="_blank">Launch Admin Dashboard</a>
+            <a href="mailto:celine.bayliss@example.com?subject=SimuScribe%20Demo%20Request" class="btn btn-secondary">Request Institutional Demo</a>
         </div>
     </header>
 
     <section class="matrix-container">
         <div class="matrix-header">
-            <h2>The 600-Case Simulation Matrix</h2>
-            <p style="color: var(--text-muted);">Fully structured across 5 core clinical disciplines, 3 complexity tiers, and mapped to diagnostic modifiers.</p>
+            <h2>The 600-Case Distribution Blueprint</h2>
+            <p style="color: var(--text-muted);">Fully structured across 5 primary disciplines, 3 progression tiers, and 4 behavioral modifiers.</p>
         </div>
         
         <div class="grid">
             <div class="card">
                 <h3><span>Internal Medicine</span> <span class="count">200 Cases</span></h3>
                 <ul class="tier-list">
-                    <li><span>Tier 1 (Foundation)</span> <span>80 Scenarios</span></li>
-                    <li><span>Tier 2 (Intermediate)</span> <span>90 Scenarios</span></li>
-                    <li><span>Tier 3 (Advanced)</span> <span>30 Scenarios</span></li>
+                    <li><span>Tier 1 (Foundation)</span> <span>80</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>90</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>30</span></li>
                 </ul>
             </div>
             <div class="card">
                 <h3><span>Emergency Medicine</span> <span class="count">150 Cases</span></h3>
                 <ul class="tier-list">
-                    <li><span>Tier 1 (Foundation)</span> <span>60 Scenarios</span></li>
-                    <li><span>Tier 2 (Intermediate)</span> <span>67 Scenarios</span></li>
-                    <li><span>Tier 3 (Advanced)</span> <span>23 Scenarios</span></li>
+                    <li><span>Tier 1 (Foundation)</span> <span>60</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>67</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>23</span></li>
                 </ul>
             </div>
             <div class="card">
                 <h3><span>Pediatrics</span> <span class="count">100 Cases</span></h3>
                 <ul class="tier-list">
-                    <li><span>Tier 1 (Foundation)</span> <span>40 Scenarios</span></li>
-                    <li><span>Tier 2 (Intermediate)</span> <span>45 Scenarios</span></li>
-                    <li><span>Tier 3 (Advanced)</span> <span>15 Scenarios</span></li>
+                    <li><span>Tier 1 (Foundation)</span> <span>40</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>45</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>15</span></li>
                 </ul>
             </div>
             <div class="card">
                 <h3><span>Obstetrics & Gynecology</span> <span class="count">75 Cases</span></h3>
                 <ul class="tier-list">
-                    <li><span>Tier 1 (Foundation)</span> <span>30 Scenarios</span></li>
-                    <li><span>Tier 2 (Intermediate)</span> <span>34 Scenarios</span></li>
-                    <li><span>Tier 3 (Advanced)</span> <span>11 Scenarios</span></li>
+                    <li><span>Tier 1 (Foundation)</span> <span>30</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>34</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>11</span></li>
                 </ul>
             </div>
             <div class="card">
                 <h3><span>Surgery & Orthopedics</span> <span class="count">75 Cases</span></h3>
                 <ul class="tier-list">
-                    <li><span>Tier 1 (Foundation)</span> <span>30 Scenarios</span></li>
-                    <li><span>Tier 2 (Intermediate)</span> <span>34 Scenarios</span></li>
-                    <li><span>Tier 3 (Advanced)</span> <span>11 Scenarios</span></li>
+                    <li><span>Tier 1 (Foundation)</span> <span>30</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>34</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>11</span></li>
                 </ul>
             </div>
-        </div>
-
-        <div class="delivery-note">
-            📦 <strong>Turnkey LMS Integration:</strong> Delivered instantly via structured CSV format, completely optimized for native import into Canvas, Moodle, Blackboard, or internal hospital simulation systems.
         </div>
     </section>
 
     <footer>
-        &copy; 2026 SimuScribe. Engineered for high-fidelity clinical simulation and documentation mastery.
+        &copy; 2026 SimuScribe. Built for seamless LMS integration (Canvas, Moodle, Blackboard).
     </footer>
 
 </body>

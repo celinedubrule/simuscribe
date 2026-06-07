@@ -1,9 +1,12 @@
 {
   "files": {
-    "main.js": "./static/js/main.31d6cfe0.js",
-    "index.html": "./index.html"
+    "main.css": "/simuscribe/static/css/main.31d6cfe0.css",
+    "main.js": "/simuscribe/static/js/main.ca32b166.js",
+    "index.html": "/simuscribe/index.html",
+    "main.ca32b166.js.map": "/simuscribe/static/js/main.ca32b166.js.map"
   },
   "entrypoints": [
-    "static/js/main.31d6cfe0.js"
+    "static/css/main.31d6cfe0.css",
+    "static/js/main.ca32b166.js"
   ]
 }

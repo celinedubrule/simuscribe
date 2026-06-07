@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <title>SimuScribe | Institutional Administration Suite</title>
     <style>
-        :root { --bg: #f8fafc; --sidebar: #1e293b; --text: #1e293b; --accent: #3b82f6; }
-        body { font-family: -apple-system, sans-serif; background: var(--bg); margin: 0; display: flex; min-height: 100vh; }
-        .sidebar { width: 260px; background: var(--sidebar); color: white; padding: 20px; }
+        :root { --bg-dark: #0f172a; --sidebar-bg: #1e293b; --accent: #3b82f6; --text-muted: #94a3b8; }
+        body { font-family: -apple-system, sans-serif; background: var(--bg-dark); color: #f8fafc; margin: 0; display: flex; min-height: 100vh; }
+        .sidebar { width: 260px; background: var(--sidebar-bg); padding: 20px; border-right: 1px solid #334155; }
+        .nav-item { padding: 10px; cursor: pointer; color: var(--text-muted); }
+        .nav-item.active { color: var(--accent); font-weight: bold; }
         .workspace { flex-grow: 1; padding: 40px; }
-        .tag { font-size: 0.7rem; padding: 2px 6px; border-radius: 4px; background: #e2e8f0; margin-right: 5px; }
-        .tag-blue { background: #dbeafe; color: #1e40af; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { text-align: left; padding: 12px; border-bottom: 1px solid #334155; cursor: pointer; }
         
-        /* Modal Styles */
-        .modal-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); display: none; justify-content: center; align-items: center; }
-        .modal-window { background: #ffffff; color: var(--text); width: 90%; max-width: 800px; border-radius: 4px; padding: 30px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); max-height: 90vh; overflow-y: auto; }
+        /* Emergent Modal Styles */
+        .modal-mask { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); display: none; justify-content: center; align-items: center; }
+        .modal-window { background: #ffffff; color: #1e293b; width: 90%; max-width: 800px; border-radius: 4px; padding: 30px; max-height: 90vh; overflow-y: auto; }
         .modal-header { border-bottom: 1px solid #e2e8f0; padding-bottom: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; }
         .vital-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; background: #f8fafc; padding: 15px; border-radius: 4px; margin-bottom: 25px; }
         .vital-item { text-align: center; }
@@ -27,23 +29,58 @@
 
     <div class="sidebar">
         <h2>SimuScribe Suite</h2>
-        <div onclick="document.getElementById('case-modal').style.display='flex'" style="cursor:pointer; padding:10px; background:#334155; border-radius:4px;">📋 View Active Case (Demo)</div>
+        <div class="nav-item active">📊 Core Dashboard</div>
+        <div class="nav-item">📋 Mapped Matrix (600)</div>
     </div>
 
     <div class="workspace">
-        <h1>SimuScribe Command Center</h1>
-        <p>Turnkey simulation matrices mapped for immediate curriculum deployment.</p>
+        <h1>Mapped Matrix</h1>
+        <table>
+            <thead><tr><th>Case ID</th><th>Title</th></tr></thead>
+            <tbody>
+                <tr onclick="launchCase('IM 0093', 'Joint stiffness in hands', '128/78', '82', '16', '37.0', '98%', '85-year-old M presents with joint stiffness in hands.', 'Vitals: Stable, awaiting focused exam.')">
+                    <td>IM 0093</td><td>Joint stiffness in hands</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 
     <div id="case-modal" class="modal-mask" onclick="if(event.target==this) this.style.display='none'">
         <div class="modal-window">
             <div class="modal-header">
                 <div>
-                    <span style="font-size: 0.7rem; color: #64748b;">IM T1 0093 • ICD-10 M86.9</span>
-                    <h2 id="modal-title" style="margin: 5px 0 0 0; font-size: 1.5rem;">Joint stiffness in hands</h2>
-                    <div><span class="tag tag-blue">IM / FP</span> <span class="tag">TIER 1 - FOUNDATION</span></div>
+                    <span id="modal-id" style="font-size: 0.7rem; color: #64748b;">CASE ID</span>
+                    <h2 id="modal-title" style="margin: 5px 0 0 0; font-size: 1.5rem;">Title</h2>
                 </div>
                 <button onclick="document.getElementById('case-modal').style.display='none'" style="border:none; background:none; cursor:pointer; font-size: 1.5rem;">×</button>
             </div>
+            <div class="vital-grid">
+                <div class="vital-item"><span>BP</span><strong id="v-bp">-</strong></div>
+                <div class="vital-item"><span>HR</span><strong id="v-hr">-</strong></div>
+                <div class="vital-item"><span>RR</span><strong id="v-rr">-</strong></div>
+                <div class="vital-item"><span>TEMP</span><strong id="v-temp">-</strong></div>
+                <div class="vital-item"><span>SPO2</span><strong id="v-spo2">-</strong></div>
+            </div>
+            <div class="clinical-grid">
+                <div><div class="section-title">History of Present Illness</div><p id="modal-hpi"></p></div>
+                <div><div class="section-title">Physical Exam</div><p id="modal-pe"></p></div>
+            </div>
+        </div>
+    </div>
 
-            <div class="vital
+    <script>
+        function launchCase(id, title, bp, hr, rr, temp, spo2, hpi, pe) {
+            document.getElementById('modal-id').innerText = id;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('v-bp').innerText = bp;
+            document.getElementById('v-hr').innerText = hr;
+            document.getElementById('v-rr').innerText = rr;
+            document.getElementById('v-temp').innerText = temp;
+            document.getElementById('v-spo2').innerText = spo2;
+            document.getElementById('modal-hpi').innerText = hpi;
+            document.getElementById('modal-pe').innerText = pe;
+            document.getElementById('case-modal').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>

@@ -1,7 +1,10 @@
 {
   "name": "simuscribe",
   "version": "1.0.0",
-  "homepage": ".", 
+  "homepage": "https://celinedubrule.github.io/simuscribe/",
+  "dependencies": {
+    ...
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",

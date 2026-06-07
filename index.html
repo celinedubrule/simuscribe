@@ -26,7 +26,7 @@
             min-height: 100vh;
         }
 
-        /* Sidebar Styling - Adjusted to handle flexible widths */
+        /* Sidebar Layout */
         .sidebar {
             width: 260px;
             min-width: 260px;
@@ -111,7 +111,7 @@
             transform: translateY(-1px);
         }
 
-        /* Main Workspace Content - Flex grow and explicit sizing to avoid screen overflow */
+        /* Main Content Viewport */
         .workspace {
             flex-grow: 1;
             padding: 2rem;
@@ -138,7 +138,7 @@
             white-space: nowrap;
         }
 
-        /* Metric Matrix Grid - Fully Responsive Layout */
+        /* Metric Widgets */
         .metrics-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -166,7 +166,7 @@
             color: var(--text-main);
         }
 
-        /* Interactive App Table Shell */
+        /* App Datagrid Layout */
         .table-container {
             background-color: var(--card-bg);
             border: 1px solid var(--border-color);
@@ -199,7 +199,7 @@
             border-collapse: collapse;
             text-align: left;
             font-size: 0.95rem;
-            min-width: 600px;
+            min-width: 700px;
         }
 
         .app-table th {
@@ -230,17 +230,19 @@
         .tag-purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
         .tag-orange { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
 
-        /* Responsive Breakpoint for Small Screens */
+        /* Multi-View Dynamic Content Sheets */
+        .view-content {
+            display: none;
+        }
+        .view-content.active-view {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
         @media (max-width: 768px) {
-            body {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                min-width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--border-color);
-            }
+            body { flex-direction: column; }
+            .sidebar { width: 100%; min-width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); }
         }
     </style>
 </head>
@@ -253,29 +255,51 @@
                 <span>SimuScribe Suite</span>
             </div>
             <ul class="nav-links">
-                <li class="nav-item active">📊 Core Dashboard</li>
-                <li class="nav-item">📋 Case Matrix <span>600</span></li>
-                <li class="nav-item">⚙️ LMS Configurations</li>
-                <li class="nav-item">📑 Export Logs</li>
+                <li id="nav-dashboard" class="nav-item active" onclick="switchView('dashboard')">📊 Core Dashboard</li>
+                <li id="nav-matrix" class="nav-item" onclick="switchView('matrix')">📋 Mapped Matrix <span>600</span></li>
+                <li id="nav-lms" class="nav-item" onclick="switchView('lms')">⚙️ LMS Integration</li>
             </ul>
         </div>
         <div class="sidebar-footer">
-            <a href="mailto:celine.bayliss@gmail.com?subject=SimuScribe%20Licensing%20Inquiry" class="btn-cta">License Full Dataset</a>
+            <a href="mailto:celine.bayliss@gmail.com?subject=SimuScribe%20Institutional%20Licensing%20Inquiry" class="btn-cta">License Complete Dataset</a>
         </div>
     </div>
 
     <div class="workspace">
         <div class="top-bar">
             <div>
-                <h1 style="margin: 0; font-size: 1.75rem; font-weight: 700;">Curriculum Administration</h1>
-                <p style="color: var(--text-muted); margin: 0.25rem 0 0 0; font-size: 0.95rem;">Turnkey simulation records ready for programmatic deployment.</p>
+                <h1 style="margin: 0; font-size: 1.75rem; font-weight: 700;">SimuScribe Command Center</h1>
+                <p style="color: var(--text-muted); margin: 0.25rem 0 0 0; font-size: 0.95rem;">Turnkey simulation matrices mapped for immediate curriculum deployment.</p>
             </div>
-            <div class="status-badge">● MASTER DATASET SECURED</div>
+            <div class="status-badge">● ENGINE ARCHIVE SECURED</div>
         </div>
 
-        <div class="metrics-grid">
-            <div class="metric-card">
-                <div class="metric-label">Blueprint Target</div>
-                <div class="metric-value">600 / 600</div>
+        <div id="view-dashboard" class="view-content active-view">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Blueprint Target</div>
+                    <div class="metric-value">600 / 600 Cases</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Disciplines Mapped</div>
+                    <div class="metric-value">5 Primary</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Complexity Scale</div>
+                    <div class="metric-value">3 Structured Tiers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">LMS Validation</div>
+                    <div class="metric-value">100% Compliant</div>
+                </div>
             </div>
-            <div class="metric-card
+
+            <div class="table-container">
+                <div class="table-controls">
+                    <h3 style="margin: 0; font-size: 1.1rem;">Active Operational Overview</h3>
+                </div>
+                <div style="padding: 2rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">
+                    Welcome to the <strong>SimuScribe Administrative Suite</strong>. The background collection phase has successfully completed all target vectors. The system has preserved 600 unique, variable-adjusted clinical simulation configurations across 5 academic stream matrices. Use the sidebar controls on the left to navigate your curriculum modules or trigger a direct procurement request.
+                </div>
+            </div>
+        </div>

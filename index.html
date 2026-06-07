@@ -182,6 +182,31 @@
             align-items: center;
             background-color: rgba(15, 23, 42, 0.3);
             gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-tabs {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tab-btn {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.375rem;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .tab-btn.active-tab, .tab-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
         }
 
         .search-input {
@@ -191,7 +216,13 @@
             padding: 0.5rem 1rem;
             border-radius: 0.375rem;
             width: 100%;
-            max-width: 300px;
+            max-width: 280px;
+            font-size: 0.9rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
         }
 
         .app-table {
@@ -271,26 +302,26 @@
                 <h1 style="margin: 0; font-size: 1.75rem; font-weight: 700;">SimuScribe Command Center</h1>
                 <p style="color: var(--text-muted); margin: 0.25rem 0 0 0; font-size: 0.95rem;">Turnkey simulation matrices mapped for immediate curriculum deployment.</p>
             </div>
-            <div class="status-badge">● ENGINE ARCHIVE SECURED</div>
+            <div class="status-badge" id="live-status">● PLATFORM ENGINE ACTIVE</div>
         </div>
 
         <div id="view-dashboard" class="view-content active-view">
             <div class="metrics-grid">
                 <div class="metric-card">
                     <div class="metric-label">Blueprint Target</div>
-                    <div class="metric-value">25 / 600 Loaded</div>
+                    <div class="metric-value" id="count-loaded">25 / 600 Cases</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-label">Disciplines Mapped</div>
-                    <div class="metric-value">5 Primary Streams</div>
+                    <div class="metric-value">5 Streams</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-label">Complexity Scale</div>
-                    <div class="metric-value">3 Structured Tiers</div>
+                    <div class="metric-value">3 Tiers</div>
                 </div>
                 <div class="metric-card">
                     <div class="metric-label">LMS Validation</div>
-                    <div class="metric-value">100% Compliant</div>
+                    <div class="metric-value" style="color: var(--accent-green);">100% Compliant</div>
                 </div>
             </div>
 
@@ -299,7 +330,7 @@
                     <h3 style="margin: 0; font-size: 1.1rem;">Active Operational Overview</h3>
                 </div>
                 <div style="padding: 2rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">
-                    Welcome to the <strong>SimuScribe Administrative Suite</strong>. The background collection phase has successfully completed all target vectors. The system has preserved an extensive library of unique, variable-adjusted clinical simulation configurations across 5 academic stream matrices. Use the sidebar controls on the left to navigate your curriculum modules or trigger a direct procurement request.
+                    Welcome to the <strong>SimuScribe Administrative Suite</strong>. The interactive sandbox profile has compiled target scenarios natively matching your integration framework. Use the sidebar modules to audit matrix variables in real-time or securely register integration profiles.
                 </div>
             </div>
         </div>
@@ -307,10 +338,17 @@
         <div id="view-matrix" class="view-content">
             <div class="table-container">
                 <div class="table-controls">
-                    <h3 style="margin: 0; font-size: 1.1rem;">Simulated Matrix Logs (Extended Core Stream)</h3>
-                    <input type="text" class="search-input" placeholder="Filter locked in preview mode..." disabled>
+                    <div class="filter-tabs">
+                        <button class="tab-btn active-tab" onclick="filterDiscipline('all', this)">All Matrices</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Internal Medicine', this)">Internal Med</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Emergency Medicine', this)">Emergency</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Pediatrics', this)">Pediatrics</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Obstetrics & Gynecology', this)">OB/GYN</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Surgery & Orthopedics', this)">Surgery</button>
+                    </div>
+                    <input type="text" id="matrix-search" class="search-input" onkeyup="searchMatrix()" placeholder="Type to filter vectors real-time...">
                 </div>
-                <table class="app-table">
+                <table class="app-table" id="scenarios-table">
                     <thead>
                         <tr>
                             <th>Case ID</th>
@@ -321,35 +359,35 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>#IM-204</td><td>Internal Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Coronary Syndrome / Vague Historian</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#IM-205</td><td>Internal Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Diabetic Ketoacidosis / Non-Compliant Patient</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#IM-206</td><td>Internal Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Chronic Kidney Disease Exacerbation / Polypharmacy Complications</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#IM-207</td><td>Internal Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Community-Acquired Pneumonia / Penicillin Allergy Modifier</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#IM-208</td><td>Internal Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Decompensated Heart Failure / Fluid Restriction Overload</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
+                        <tr data-discipline="Internal Medicine"><td>#IM-204</td><td>Internal Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Coronary Syndrome / Vague Historian</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Internal Medicine"><td>#IM-205</td><td>Internal Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Diabetic Ketoacidosis / Non-Compliant Patient</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Internal Medicine"><td>#IM-206</td><td>Internal Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Chronic Kidney Disease Exacerbation / Polypharmacy Complications</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Internal Medicine"><td>#IM-207</td><td>Internal Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Community-Acquired Pneumonia / Penicillin Allergy Modifier</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Internal Medicine"><td>#IM-208</td><td>Internal Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Decompensated Heart Failure / Fluid Restriction Overload</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
                         
-                        <tr><td>#EM-412</td><td>Emergency Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Polytrauma Secondary to MVA / Hostile Accompanying Family</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#EM-413</td><td>Emergency Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Uncomplicated Asthma Flare / Inhaler Misuse History</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#EM-414</td><td>Emergency Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Sepsis Secondary to UTI / Rapidly Progressing Hypotension</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#EM-415</td><td>Emergency Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Anaphylactic Shock / Delayed Epinephrine Administration Vector</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#EM-416</td><td>Emergency Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Acute Pulmonary Embolism / Post-Surgical Comorbidity</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
+                        <tr data-discipline="Emergency Medicine"><td>#EM-412</td><td>Emergency Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Polytrauma Secondary to MVA / Hostile Accompanying Family</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Emergency Medicine"><td>#EM-413</td><td>Emergency Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Uncomplicated Asthma Flare / Inhaler Misuse History</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Emergency Medicine"><td>#EM-414</td><td>Emergency Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Sepsis Secondary to UTI / Rapidly Progressing Hypotension</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Emergency Medicine"><td>#EM-415</td><td>Emergency Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Anaphylactic Shock / Delayed Epinephrine Administration Vector</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Emergency Medicine"><td>#EM-416</td><td>Emergency Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Acute Pulmonary Embolism / Post-Surgical Comorbidity</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
 
-                        <tr><td>#PED-089</td><td>Pediatrics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Febrile Seizure / Language & Interpreter Barrier</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#PED-090</td><td>Pediatrics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Otitis Media / Hyper-Anxious Primary Caregiver</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#PED-091</td><td>Pediatrics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Severe Respiratory Syncytial Virus (RSV) / Neonatal Intubation Protocol</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#PED-092</td><td>Pediatrics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Type 1 Diabetes Presentation / New-Onset Pediatric Education Matrix</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#PED-093</td><td>Pediatrics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Dehydration Secondary to Gastroenteritis / Refusal of Oral Rehydration</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
+                        <tr data-discipline="Pediatrics"><td>#PED-089</td><td>Pediatrics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Febrile Seizure / Language & Interpreter Barrier</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Pediatrics"><td>#PED-090</td><td>Pediatrics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Otitis Media / Hyper-Anxious Primary Caregiver</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Pediatrics"><td>#PED-091</td><td>Pediatrics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Severe Respiratory Syncytial Virus (RSV) / Neonatal Intubation Protocol</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Pediatrics"><td>#PED-092</td><td>Pediatrics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Type 1 Diabetes Presentation / New-Onset Pediatric Education Matrix</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Pediatrics"><td>#PED-093</td><td>Pediatrics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Dehydration Secondary to Gastroenteritis / Refusal of Oral Rehydration</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
 
-                        <tr><td>#OB-114</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Preeclampsia Assessment / High-Anxiety Management Profile</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#OB-115</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Postpartum Hemorrhage / Massive Transfusion Protocol Trigger</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#OB-116</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Ectopic Pregnancy Suspicion / Jehovah's Witness Blood Product Refusal</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#OB-117</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Active Normal Labor Management / Intravenous Access Difficulty</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#OB-118</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Shoulder Dystocia Emergency / High-Stress Team Coordination Variant</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology"><td>#OB-114</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Preeclampsia Assessment / High-Anxiety Management Profile</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology"><td>#OB-115</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Postpartum Hemorrhage / Massive Transfusion Protocol Trigger</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology"><td>#OB-116</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Ectopic Pregnancy Suspicion / Jehovah's Witness Blood Product Refusal</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology"><td>#OB-117</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Active Normal Labor Management / Intravenous Access Difficulty</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology"><td>#OB-118</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Shoulder Dystocia Emergency / High-Stress Team Coordination Variant</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
 
-                        <tr><td>#SURG-501</td><td>Surgery & Orthopedics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Acute Appendicitis perforation / Complex Cardiovascular Comorbidity</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#SURG-502</td><td>Surgery & Orthopedics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Incarcerated Inguinal Hernia / Pre-Operative Clearance Block</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#SURG-503</td><td>Surgery & Orthopedics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Acute Cholecystitis / Concurrent Choledocholithiasis Pathway</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#SURG-504</td><td>Surgery & Orthopedics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Closed Radius Fracture / Pediatric Sedation Fear Modifier</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
-                        <tr><td>#SURG-505</td><td>Surgery & Orthopedics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Post-Operative Anastomotic Leak / Emergent Exploratory Laparotomy</td><td style="color: var(--accent-green);">✓ Verified Asset</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics"><td>#SURG-501</td><td>Surgery & Orthopedics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Acute Appendicitis perforation / Complex Cardiovascular Comorbidity</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics"><td>#SURG-502</td><td>Surgery & Orthopedics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Incarcerated Inguinal Hernia / Pre-Operative Clearance Block</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics"><td>#SURG-503</td><td>Surgery & Orthopedics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Acute Cholecystitis / Concurrent Choledocholithiasis Pathway</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics"><td>#SURG-504</td><td>Surgery & Orthopedics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Closed Radius Fracture / Pediatric Sedation Fear Modifier</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics"><td>#SURG-505</td><td>Surgery & Orthopedics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Post-Operative Anastomotic Leak / Emergent Exploratory Laparotomy</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -358,7 +396,7 @@
         <div id="view-lms" class="view-content">
             <div class="table-container" style="padding: 2rem;">
                 <h3 style="margin-top: 0; font-size: 1.25rem;">Native Platform Integration Schemas</h3>
-                <p style="color: var(--text-muted); font-size: 0.95rem;">The complete 600-case dataset is fully formatted to match row templates for native LMS injection methods:</p>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">The complete dataset maps dynamically inside row templates matching institutional LMS engines:</p>
                 <ul style="color: var(--text-muted); line-height: 2; font-size: 0.95rem; padding-left: 1.25rem;">
                     <li><strong>Canvas LMS:</strong> Comma-Separated Canvas Quizzing/Assignment Blocks</li>
                     <li><strong>Moodle / Blackboard:</strong> Question Bank Standard CSV Upload Formatting</li>
@@ -369,24 +407,77 @@
     </div>
 
     <script>
+        var currentSelectedStream = 'all';
+
+        // 1. Core Tab Module Swapping
         function switchView(viewId, clickedElement) {
-            // Deactivate all content views safely
             var views = document.querySelectorAll('.view-content');
             for (var i = 0; i < views.length; i++) {
                 views[i].classList.remove('active-view');
             }
-            
-            // Remove active style from all nav buttons safely
             var items = document.querySelectorAll('.nav-item');
             for (var j = 0; j < items.length; j++) {
                 items[j].classList.remove('active');
             }
-            
-            // Activate target view content panel
             document.getElementById('view-' + viewId).classList.add('active-view');
-            
-            // Add active class directly to the clicked element
             clickedElement.classList.add('active');
+        }
+
+        // 2. Specialty Bubble Tag Filtering
+        function filterDiscipline(discipline, clickedTab) {
+            currentSelectedStream = discipline;
+            
+            // Toggle active styling states on buttons
+            var tabs = document.querySelectorAll('.tab-btn');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active-tab');
+            }
+            clickedTab.classList.add('active-tab');
+            
+            // Process view filtering updates
+            executeCombinedFilters();
+        }
+
+        // 3. Search Bar Engine
+        function searchMatrix() {
+            executeCombinedFilters();
+        }
+
+        // 4. Combined Processing Logic (Search + Category Filtering combo)
+        function executeCombinedFilters() {
+            var searchInput = document.getElementById('matrix-search').value.toLowerCase();
+            var tableRows = document.getElementById('scenarios-table').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            var matchCounter = 0;
+
+            for (var i = 0; i < tableRows.length; i++) {
+                var row = tableRows[i];
+                var rowDiscipline = row.getAttribute('data-discipline');
+                var textContent = row.textContent.toLowerCase();
+
+                // Validation match conditions
+                var matchesStream = (currentSelectedStream === 'all' || rowDiscipline === currentSelectedStream);
+                var matchesSearch = (textContent.indexOf(searchInput) > -1);
+
+                if (matchesStream && matchesSearch) {
+                    row.style.display = "";
+                    matchCounter++;
+                } else {
+                    row.style.display = "none";
+                }
+            }
+
+            // Real-time Dashboard Variable Injection
+            document.getElementById('count-loaded').innerText = matchCounter + " / 600 Cases";
+            var statusEl = document.getElementById('live-status');
+            if(searchInput.length > 0) {
+                statusEl.innerText = "● VECTOR STREAM FILTERED";
+                statusEl.style.color = "#3b82f6";
+                statusEl.style.background = "rgba(59, 130, 246, 0.1)";
+            } else {
+                statusEl.innerText = "● PLATFORM ENGINE ACTIVE";
+                statusEl.style.color = "#10b981";
+                statusEl.style.background = "rgba(16, 185, 129, 0.1)";
+            }
         }
     </script>
 

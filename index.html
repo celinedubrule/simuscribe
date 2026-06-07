@@ -205,4 +205,517 @@
             transition: all 0.2s;
         }
 
-        .tab-
+        .tab-btn.active-tab, .tab-btn:hover {
+            background: var(--accent-blue);
+            color: white;
+            border-color: var(--accent-blue);
+        }
+
+        .search-input {
+            background-color: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-main);
+            padding: 0.5rem 1rem;
+            border-radius: 0.375rem;
+            width: 100%;
+            max-width: 280px;
+            font-size: 0.9rem;
+        }
+        
+        .search-input:focus {
+            outline: none;
+            border-color: var(--accent-blue);
+        }
+
+        .app-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+            min-width: 850px;
+        }
+
+        .app-table th {
+            background-color: rgba(15, 23, 42, 0.5);
+            padding: 1rem 1.5rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .app-table td {
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .app-table tbody tr {
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .app-table tbody tr:hover {
+            background-color: rgba(59, 130, 246, 0.08);
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 0.2rem 0.5rem;
+            border-radius: 0.25rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .tag-blue { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .tag-orange { background: rgba(245, 158, 11, 0.15); color: #fbbf24; }
+        .tag-purple { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+
+        /* Dynamic Content Sheets */
+        .view-content {
+            display: none;
+        }
+        .view-content.active-view {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        /* PREMIUM PLUTONIC DUAL-COLUMN MODAL CHASSIS */
+        .modal-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: var(--modal-overlay);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            backdrop-filter: blur(5px);
+            padding: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .modal-window {
+            background-color: #1e293b;
+            border: 1px solid var(--border-color);
+            width: 100%;
+            max-width: 900px;
+            border-radius: 0.75rem;
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.7);
+            display: flex;
+            flex-direction: column;
+            max-height: 85vh;
+            animation: modalSlide 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow: hidden;
+        }
+
+        @keyframes modalSlide {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-header {
+            padding: 1.25rem 1.75rem;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(15, 23, 42, 0.4);
+        }
+
+        /* 2-Column Split Engine */
+        .modal-split-container {
+            display: flex;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .modal-left-chart {
+            flex: 3;
+            padding: 1.75rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .modal-right-telemetry {
+            flex: 2;
+            background-color: var(--telemetry-bg);
+            border-left: 1px solid var(--border-color);
+            padding: 1.75rem;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            box-sizing: border-box;
+        }
+
+        .modal-close {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            cursor: pointer;
+            padding: 0.4rem 0.8rem;
+            border-radius: 0.375rem;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+        .modal-close:hover { color: var(--text-main); background: rgba(239, 68, 68, 0.2); border-color: rgba(239, 68, 68, 0.4); }
+
+        .detail-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .detail-title {
+            font-size: 0.8rem;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.15);
+            padding-bottom: 0.25rem;
+        }
+
+        /* Vitals Grid Panels */
+        .telemetry-vitals-stack {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .vital-row-pill {
+            background: rgba(30, 41, 59, 0.7);
+            border: 1px solid var(--border-color);
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .vital-row-pill span {
+            color: var(--text-muted);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .vital-row-pill strong {
+            color: #38bdf8;
+            font-size: 1.1rem;
+            font-family: monospace, sans-serif;
+        }
+
+        .lab-box-content {
+            background: rgba(15, 23, 42, 0.6);
+            border-left: 3px solid #e11d48;
+            padding: 1rem;
+            border-radius: 0.25rem;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: #f1f5f9;
+        }
+
+        @media (max-width: 800px) {
+            .modal-split-container { flex-direction: column; }
+            .modal-right-telemetry { border-left: none; border-top: 1px solid var(--border-color); }
+        }
+        @media (max-width: 768px) {
+            body { flex-direction: column; }
+            .sidebar { width: 100%; min-width: 100%; border-right: none; border-bottom: 1px solid var(--border-color); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="sidebar">
+        <div>
+            <div class="logo-area">
+                <div class="logo-dot"></div>
+                <span>SimuScribe Suite</span>
+            </div>
+            <ul class="nav-links">
+                <li class="nav-item active" onclick="switchView('dashboard', this)">📊 Core Dashboard</li>
+                <li class="nav-item" onclick="switchView('matrix', this)">📋 Mapped Matrix <span>25 Active</span></li>
+                <li class="nav-item" onclick="switchView('lms', this)">⚙️ LMS Integration</li>
+            </ul>
+        </div>
+        <div class="sidebar-footer">
+            <a href="mailto:celine.bayliss@gmail.com?subject=SimuScribe%20Institutional%20Licensing%20Inquiry" class="btn-cta">License Complete Dataset</a>
+        </div>
+    </div>
+
+    <div class="workspace">
+        <div class="top-bar">
+            <div>
+                <h1 style="margin: 0; font-size: 1.75rem; font-weight: 700;">SimuScribe Command Center</h1>
+                <p style="color: var(--text-muted); margin: 0.25rem 0 0 0; font-size: 0.95rem;">Turnkey simulation matrices mapped for immediate curriculum deployment.</p>
+            </div>
+            <div class="status-badge" id="live-status">● PLATFORM ENGINE ACTIVE</div>
+        </div>
+
+        <div id="view-dashboard" class="view-content active-view">
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-label">Blueprint Target</div>
+                    <div class="metric-value" id="count-loaded">25 / 600 Cases</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Disciplines Mapped</div>
+                    <div class="metric-value">5 Streams</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">Complexity Scale</div>
+                    <div class="metric-value">3 Tiers</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-label">LMS Validation</div>
+                    <div class="metric-value" style="color: var(--accent-green);">100% Compliant</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-controls">
+                    <h3 style="margin: 0; font-size: 1.1rem;">Active Operational Overview</h3>
+                </div>
+                <div style="padding: 2rem; color: var(--text-muted); font-size: 0.95rem; line-height: 1.7;">
+                    Welcome to the <strong>SimuScribe Administrative Suite</strong>. The interactive sandbox profile has compiled target scenarios natively matching your integration framework. Use the sidebar modules to audit matrix variables in real-time or securely register integration profiles. <strong>Click any individual row inside the Mapped Matrix to launch full patient clinical vectors.</strong>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-matrix" class="view-content">
+            <div class="table-container">
+                <div class="table-controls">
+                    <div class="filter-tabs">
+                        <button class="tab-btn active-tab" onclick="filterDiscipline('all', this)">All Matrices</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Internal Medicine', this)">Internal Med</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Emergency Medicine', this)">Emergency</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Pediatrics', this)">Pediatrics</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Obstetrics & Gynecology', this)">OB/GYN</button>
+                        <button class="tab-btn" onclick="filterDiscipline('Surgery & Orthopedics', this)">Surgery</button>
+                    </div>
+                    <input type="text" id="matrix-search" class="search-input" onkeyup="searchMatrix()" placeholder="Type to filter vectors real-time...">
+                </div>
+                <table class="app-table" id="scenarios-table">
+                    <thead>
+                        <tr>
+                            <th>Case ID</th>
+                            <th>Clinical Discipline</th>
+                            <th>Complexity Level</th>
+                            <th>Primary Target / Modifier Applied</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr data-discipline="Internal Medicine" onclick="launchCase('#IM-204', 'Internal Medicine', 'Tier 1 (Foundation)', 'Acute Coronary Syndrome', 'Vague Historian', '64-year-old presenting with substernal pressure radiating down left arm. Patient gives contradictory timeline data.', 'HR:98 bpm|BP:154/92 mmHg|SpO2:94% on RA|Temp:36.8°C', 'Troponin: Elevated at 0.12 ng/mL | ECG: ST-depression in V4-V6.', '12-Lead ECG interpretation, prompt ASA/Nitroglycerin scheduling, and risk stratification mapping.')"><td>#IM-204</td><td>Internal Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Coronary Syndrome / Vague Historian</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Internal Medicine" onclick="launchCase('#IM-205', 'Internal Medicine', 'Tier 2 (Intermediate)', 'Diabetic Ketoacidosis', 'Non-Compliant Patient', '24-year-old missing insulin doses for 48 hours. Defensive regarding clinical oversight teams.', 'HR:112 bpm|BP:108/64 mmHg|SpO2:98% on RA|Resp:26/min (Kussmaul)', 'Blood Glucose: 28.4 mmol/L | Arterial pH: 7.15 | Ketones: Strongly Positive.', 'Aggressive fluid management sequence, calculation of anion gap corrections, and insulin infusion adjustments.')"><td>#IM-205</td><td>Internal Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Diabetic Ketoacidosis / Non-Compliant Patient</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Internal Medicine" onclick="launchCase('#IM-206', 'Internal Medicine', 'Tier 3 (Advanced)', 'Chronic Kidney Disease Exacerbation', 'Polypharmacy Complications', '78-year-old presenting with profound fluid retention, taking mismatched OTC NSAIDs alongside prescribed ACE inhibitors.', 'HR:84 bpm (irreg)|BP:178/102 mmHg|SpO2:91% on RA|Temp:36.6°C', 'Potassium: 6.2 mmol/L | Creatinine: 420 µmol/L | BUN: High.', 'Hyperkalemia emergent defense stabilizer protocols, medication adjustments, and urgent nephrology optimization layouts.')"><td>#IM-206</td><td>Internal Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Chronic Kidney Disease Exacerbation / Polypharmacy Complications</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Internal Medicine" onclick="launchCase('#IM-207', 'Internal Medicine', 'Tier 1 (Foundation)', 'Community-Acquired Pneumonia', 'Penicillin Allergy Modifier', '45-year-old with cough, pleuritic chest pain, and history of hives with Penicillin formulations.', 'HR:92 bpm|BP:120/78 mmHg|SpO2:93% on RA|Temp:38.9°C', 'WBC: 14.5 x10^9/L | CXR: Right lower lobe consolidation.', 'Antibiotic choice modifications avoiding Penicillin groups, hydration tracking, and oxygen support triggers.')"><td>#IM-207</td><td>Internal Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Community-Acquired Pneumonia / Penicillin Allergy Modifier</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Internal Medicine" onclick="launchCase('#IM-208', 'Internal Medicine', 'Tier 2 (Intermediate)', 'Decompensated Heart Failure', 'Fluid Restriction Overload', '71-year-old experiencing extreme orthopnea after excessive sodium and fluid consumption.', 'HR:104 bpm|BP:162/95 mmHg|SpO2:89% on 2L NC|Temp:36.7°C', 'BNP: 1800 pg/mL | Chest X-Ray: Notable pulmonary vascular congestion.', 'Intravenous loop diuretic profiling, setting exact fluid constraints, and real-time response monitoring tables.')"><td>#IM-208</td><td>Internal Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Decompensated Heart Failure / Fluid Restriction Overload</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        
+                        <tr data-discipline="Emergency Medicine" onclick="launchCase('#EM-412', 'Emergency Medicine', 'Tier 3 (Advanced)', 'Polytrauma Secondary to MVA', 'Hostile Accompanying Family', '32-year-old unsecured driver extracted following high-speed impact. Family shouting over trauma team commands.', 'HR:128 bpm|BP:90/52 mmHg|SpO2:91% on HF-Mask|Temp:36.2°C', 'Hgb: 85 g/L | FAST Scan: Positive free fluid in right upper quadrant.', 'Massive Transfusion Protocol activations, spine protection safety sequences, and aggressive family containment.')"><td>#EM-412</td><td>Emergency Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Polytrauma Secondary to MVA / Hostile Accompanying Family</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Emergency Medicine" onclick="launchCase('#EM-413', 'Emergency Medicine', 'Tier 1 (Foundation)', 'Acute Uncomplicated Asthma Flare', 'Inhaler Misuse History', '19-year-old with acute wheezing who displays incorrect spacer utilization styles during clinical collection review.', 'HR:105 bpm|BP:126/82 mmHg|SpO2:94% on RA|Resp:24/min', 'Peak Flow: 210 L/min (Reduced from baseline).', 'Continuous nebulizer tracking schemas, systemic corticosteroid delivery, and educational corrections.')"><td>#EM-413</td><td>Emergency Medicine</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Uncomplicated Asthma Flare / Inhaler Misuse History</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Emergency Medicine" onclick="launchCase('#EM-414', 'Emergency Medicine', 'Tier 2 (Intermediate)', 'Sepsis Secondary to UTI', 'Rapidly Progressing Hypotension', '68-year-old female presenting altered, with severe flank sensitivity and dropping map variables.', 'HR:122 bpm|BP:88/44 mmHg|SpO2:95% on RA|Temp:39.4°C', 'Lactate: 3.4 mmol/L | Urinalysis: Plentiful bacteria and leukocytes.', 'Fluid challenge tracking, early broad-spectrum coverage injections, and central venous monitoring setups.')"><td>#EM-414</td><td>Emergency Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Sepsis Secondary to UTI / Rapidly Progressing Hypotension</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Emergency Medicine" onclick="launchCase('#EM-415', 'Emergency Medicine', 'Tier 3 (Advanced)', 'Anaphylactic Shock', 'Delayed Epinephrine Administration Vector', '27-year-old experiencing severe airway swelling after walnut consumption. First responder neglected IM auto-injector pipelines.', 'HR:135 bpm|BP:76/40 mmHg|SpO2:86% on RA|Stridor:Present', 'Clinical diagnosis of profound airway collapse.', 'Emergent airway control sequencing, immediate IM epinephrine configurations, and secondary vasopressor supports.')"><td>#EM-415</td><td>Emergency Medicine</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Anaphylactic Shock / Delayed Epinephrine Administration Vector</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Emergency Medicine" onclick="launchCase('#EM-416', 'Emergency Medicine', 'Tier 2 (Intermediate)', 'Acute Pulmonary Embolism', 'Post-Surgical Comorbidity', '54-year-old with sudden pleuritic pain 10 days following total hip arthroplasty procedures.', 'HR:118 bpm|BP:114/70 mmHg|SpO2:90% on RA|Temp:37.1°C', 'D-Dimer: Elevated at 2400 ng/mL | CTPA: Positive filling defect in right pulmonary artery.', 'Immediate therapeutic anticoagulation selection, oxygenation adjustments, and bleeding risk evaluations.')"><td>#EM-416</td><td>Emergency Medicine</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Acute Pulmonary Embolism / Post-Surgical Comorbidity</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+
+                        <tr data-discipline="Pediatrics" onclick="launchCase('#PED-089', 'Pediatrics', 'Tier 2 (Intermediate)', 'Febrile Seizure', 'Language / Interpreter Barrier', '18-month-old experiencing tonic-clonic movements. Monolingual parents terrified and unable to translate core histories.', 'HR:142 bpm|BP:95/60 mmHg|SpO2:96% on RA|Temp:39.8°C', 'Basic metabolic arrays inside standard physiological ranges.', 'Airway safety management, fever reduction execution, and phone interpretation link coordination.')"><td>#PED-089</td><td>Pediatrics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Febrile Seizure / Language & Interpreter Barrier</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Pediatrics" onclick="launchCase('#PED-090', 'Pediatrics', 'Tier 1 (Foundation)', 'Acute Otitis Media', 'Hyper-Anxious Primary Caregiver', '3-year-old with intense ear pulling. Parent demanding advanced head imaging sequences to rule out brain infections.', 'HR:110 bpm|BP:100/65 mmHg|SpO2:99% on RA|Temp:38.2°C', 'Otoscopy: Bulging, erythematous tympanic membrane.', 'Focused pediatric pain scoring, targeted antibiotic execution, and empathetic caregiver de-escalation models.')"><td>#PED-090</td><td>Pediatrics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Acute Otitis Media / Hyper-Anxious Primary Caregiver</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Pediatrics" onclick="launchCase('#PED-091', 'Pediatrics', 'Tier 3 (Advanced)', 'Severe Respiratory Syncytial Virus (RSV)', 'Neonatal Intubation Protocol', '3-week-old neonate with profound retractions, apnea segments, and progressive exhaustion parameters.', 'HR:165 bpm|BP:62/38 mmHg|SpO2:84% on 100% O2|Temp:35.9°C', 'Capillary Blood Gas: pH: 7.21 | pCO2: 68 mmHg.', 'Emergent neonatal rapid sequence intubation, tube selection formulas, and specific ventilator parameter setups.')"><td>#PED-091</td><td>Pediatrics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Severe Respiratory Syncytial Virus (RSV) / Neonatal Intubation Protocol</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Pediatrics" onclick="launchCase('#PED-092', 'Pediatrics', 'Tier 2 (Intermediate)', 'Type 1 Diabetes Presentation', 'New-Onset Pediatric Education Matrix', '8-year-old with notable weight loss, polyuria, and polydipsia over 3 weeks. No acute ketoacidosis state present.', 'HR:95 bpm|BP:102/68 mmHg|SpO2:98% on RA|Temp:36.6°C', 'Random Blood Glucose: 19.5 mmol/L | HbA1c: 11.2% | Serum Ketones: Negative.', 'Subcutaneous insulin regimen structuring, carbohydrate counting calculations, and child-centered safety training.')"><td>#PED-092</td><td>Pediatrics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Type 1 Diabetes Presentation / New-Onset Pediatric Education Matrix</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Pediatrics" onclick="launchCase('#PED-093', 'Pediatrics', 'Tier 1 (Foundation)', 'Dehydration Secondary to Gastroenteritis', 'Refusal of Oral Rehydration', '5-year-old with vomiting who actively spits out oral rehydration solutions due to nausea triggers.', 'HR:120 bpm|BP:90/58 mmHg|SpO2:97% on RA|Cap-Refill:Delayed', 'Sodium: 138 mmol/L | Potassium: 3.6 mmol/L.', 'Antiemetic selection tracking, peripheral IV installation scripting, and isotonic fluid bolus mathematical targets.')"><td>#PED-093</td><td>Pediatrics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Dehydration Secondary to Gastroenteritis / Refusal of Oral Rehydration</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+
+                        <tr data-discipline="Obstetrics & Gynecology" onclick="launchCase('#OB-114', 'Obstetrics & Gynecology', 'Tier 1 (Foundation)', 'Preeclampsia Assessment', 'High-Anxiety Management Profile', '34-week pregnant female with tracking pressures of 158/96. Panic attack states confound the baseline diagnostic parameters.', 'HR:108 bpm|BP:162/98 mmHg|SpO2:97% on RA|Temp:36.9°C', 'Urine Protein: 2+ on dipstick | Platelets: 180 x10^9/L.', 'Environment control stabilizers, antihypertensive delivery thresholds, and deep fetal heart pattern tracing reviews.')"><td>#OB-114</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Preeclampsia Assessment / High-Anxiety Management Profile</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology" onclick="launchCase('#OB-115', 'Obstetrics & Gynecology', 'Tier 3 (Advanced)', 'Postpartum Hemorrhage', 'Massive Transfusion Protocol Trigger', 'Following spontaneous delivery, patient experiences sudden uterine atony and brisk, uncontained vaginal bleeding.', 'HR:132 bpm|BP:82/40 mmHg|SpO2:92% on O2 Mask|Temp:36.4°C', 'Estimated Blood Loss: 1200 mL and rising actively.', 'Bimanual uterine massage, uterotonic sequencing pathways, and component blood deployment controls.')"><td>#OB-115</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Postpartum Hemorrhage / Massive Transfusion Protocol Trigger</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology" onclick="launchCase('#OB-116', 'Obstetrics & Gynecology', 'Tier 2 (Intermediate)', 'Ectopic Pregnancy Suspicion', 'Jehovah\'s Witness Blood Refusal', '6-week gestation presentation with unilateral pelvic pain, dropping blood pressures, and strict religious product constraints.', 'HR:115 bpm|BP:94/56 mmHg|SpO2:96% on RA|Temp:36.8°C', 'Beta-hCG: 4500 mIU/mL | Pelvic Ultrasound: Free fluid in adnexa.', 'Emergent surgical scheduling parameters, non-blood plasma expander calculations, and legal consent management.')"><td>#OB-116</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Ectopic Pregnancy Suspicion / Jehovah's Witness Blood Product Refusal</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology" onclick="launchCase('#OB-117', 'Obstetrics & Gynecology', 'Tier 1 (Foundation)', 'Active Normal Labor Management', 'Intravenous Access Difficulty', 'G1P0 at 39 weeks, 5cm dilated. Multiple history profiles indicate historical drug use causing severe venous scarring.', 'HR:88 bpm|BP:118/72 mmHg|SpO2:99% on RA|Contractions:q3min', 'Fetal Heart Rate: 140 bpm (Category 1 baseline tracking).', 'Alternative venous line selection tools or ultrasound placement mechanics, and normal birth support charting.')"><td>#OB-117</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Active Normal Labor Management / Intravenous Access Difficulty</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Obstetrics & Gynecology" onclick="launchCase('#OB-118', 'Obstetrics & Gynecology', 'Tier 3 (Advanced)', 'Shoulder Dystocia Emergency', 'High-Stress Team Coordination Variant', 'Fetal head delivers but becomes impacted against public bone. Delivery window turning critical.', 'HR:110 bpm|BP:140/85 mmHg|SpO2:98% on RA|Maternal-Exh:Rising', 'Fetal heart tracking shows profound decelerations.', 'Rapid structural maneuvering cycles (McRoberts, suprapubic pressure), time tracking, and emergent team coordination.')"><td>#OB-118</td><td>Obstetrics & Gynecology</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Shoulder Dystocia Emergency / High-Stress Team Coordination Variant</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+
+                        <tr data-discipline="Surgery & Orthopedics" onclick="launchCase('#SURG-501', 'Surgery & Orthopedics', 'Tier 3 (Advanced)', 'Acute Appendicitis Perforation', 'Complex Cardiovascular Comorbidity', '59-year-old with severe rebound abdominal tenderness and a dual-chamber mechanical pacemaker mapping.', 'HR:106 bpm|BP:138/84 mmHg|SpO2:95% on RA|Temp:38.7°C', 'WBC: 17.2 x10^9/L | CT Abdomen: Free air and appendiceal disruption.', 'Pre-op antibiotic configurations, electrocautery planning adjustments for internal pacemakers, and appendectomy protocols.')"><td>#SURG-501</td><td>Surgery & Orthopedics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Acute Appendicitis perforation / Complex Cardiovascular Comorbidity</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics" onclick="launchCase('#SURG-502', 'Surgery & Orthopedics', 'Tier 1 (Foundation)', 'Incarcerated Inguinal Hernia', 'Pre-Operative Clearance Block', '67-year-old with a painful, non-reducible groin mass. Patient took a full dose of Clopidogrel (Plavix) this morning.', 'HR:94 bpm|BP:148/90 mmHg|SpO2:96% on RA|Temp:37.0°C', 'Coagulation Array: PT/INR within target bounds.', 'Surgical risk-benefit calculations, antiplatelet reversal decisions, and emergent herniorrhaphy scheduling.')"><td>#SURG-502</td><td>Surgery & Orthopedics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Incarcerated Inguinal Hernia / Pre-Operative Clearance Block</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics" onclick="launchCase('#SURG-503', 'Surgery & Orthopedics', 'Tier 2 (Intermediate)', 'Acute Cholecystitis', 'Concurrent Choledocholithiasis Pathway', '42-year-old female with persistent RUQ pain, vomiting, and scleral icterus.', 'HR:100 bpm|BP:124/76 mmHg|SpO2:97% on RA|Temp:38.4°C', 'Total Bilirubin: 78 µmol/L | Alkaline Phosphatase: Elevated at 220 U/L.', 'ERCP timeline coordinating frameworks combined with laparoscopic cholecystectomy pathways.')"><td>#SURG-503</td><td>Surgery & Orthopedics</td><td><span class="tag tag-orange">Tier 2 (Intermediate)</span></td><td>Acute Cholecystitis / Concurrent Choledocholithiasis Pathway</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics" onclick="launchCase('#SURG-504', 'Surgery & Orthopedics', 'Tier 1 (Foundation)', 'Closed Radius Fracture', 'Pediatric Sedation Fear Modifier', '7-year-old with obvious forearm deformity after falling from playground equipment. Parent hysterical regarding procedural sedation risks.', 'HR:115 bpm|BP:104/62 mmHg|SpO2:99% on RA|Pain:8/10', 'X-Ray: Displaced distal radius fracture with dorsal angulation.', 'Empathetic sedation risk profile education scripts, monitoring setup targets, and manual reduction alignment tracks.')"><td>#SURG-504</td><td>Surgery & Orthopedics</td><td><span class="tag tag-blue">Tier 1 (Foundation)</span></td><td>Closed Radius Fracture / Pediatric Sedation Fear Modifier</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                        <tr data-discipline="Surgery & Orthopedics" onclick="launchCase('#SURG-505', 'Surgery & Orthopedics', 'Tier 3 (Advanced)', 'Post-Operative Anastomotic Leak', 'Emergent Exploratory Laparotomy', '62-year-old on post-op day 4 following low anterior resection, presenting with sudden-onset peritonitis and septic features.', 'HR:124 bpm|BP:92/54 mmHg|SpO2:91% on RA|Abdomen:Rigid', 'WBC: 22.4 x10^9/L | CT: Significant free fluid and localized fluid-gas collections.', 'Fluid resuscitations, broad-spectrum empiric setups, and direct emergent surgical suite planning metrics.')"><td>#SURG-505</td><td>Surgery & Orthopedics</td><td><span class="tag tag-purple">Tier 3 (Advanced)</span></td><td>Post-Operative Anastomotic Leak / Emergent Exploratory Laparotomy</td><td style="color: var(--accent-green);">✓ Verified</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="view-lms" class="view-content">
+            <div class="table-container" style="padding: 2rem;">
+                <h3 style="margin-top: 0; font-size: 1.25rem;">Native Platform Integration Schemas</h3>
+                <p style="color: var(--text-muted); font-size: 0.95rem;">The complete dataset maps dynamically inside row templates matching institutional LMS engines:</p>
+                <ul style="color: var(--text-muted); line-height: 2; font-size: 0.95rem; padding-left: 1.25rem;">
+                    <li><strong>Canvas LMS:</strong> Comma-Separated Canvas Quizzing/Assignment Blocks</li>
+                    <li><strong>Moodle / Blackboard:</strong> Question Bank Standard CSV Upload Formatting</li>
+                    <li><strong>Simulation Centers:</strong> Structured Raw Patient Record Script Layouts</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div id="case-modal" class="modal-mask" onclick="closeCaseOutside(event)">
+        <div class="modal-window">
+            <div class="modal-header">
+                <div>
+                    <span id="modal-case-id" style="font-size: 0.8rem; color: var(--accent-blue); font-weight: 700; letter-spacing: 0.05em; display: block;">CASE LOG ARCHIVE</span>
+                    <h2 id="modal-title" style="margin: 0.15rem 0 0 0; font-size: 1.3rem; font-weight: 700;">Scenario Core Target</h2>
+                </div>
+                <button class="modal-close" onclick="closeCase()">Return to Matrix</button>
+            </div>
+            
+            <div class="modal-split-container">
+                
+                <div class="modal-left-chart">
+                    <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        <span class="tag tag-blue" id="modal-discipline">Discipline</span>
+                        <span class="tag tag-purple" id="modal-tier">Tier Target</span>
+                        <span class="tag tag-orange" id="modal-modifier">Applied Modifier</span>
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-title">Clinical Presentation & History</div>
+                        <div id="modal-desc" style="color: var(--text-main); font-size: 0.95rem; line-height: 1.6;">Narrative details populated here.</div>
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-title">Curriculum Learning Mapping Objectives</div>
+                        <div id="modal-objectives" style="color: var(--text-main); font-size: 0.95rem; line-height: 1.6;">Objectives loaded here.</div>
+                    </div>
+                </div>
+
+                <div class="modal-right-telemetry">
+                    <div class="detail-section">
+                        <div class="detail-title">Patient Telemetry (T=0 Baseline)</div>
+                        <div class="telemetry-vitals-stack" id="modal-vitals-stack">
+                            </div>
+                    </div>
+
+                    <div class="detail-section">
+                        <div class="detail-title">Diagnostics & Lab Assets</div>
+                        <div class="lab-box-content" id="modal-labs">Lab data strings go here.</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var currentSelectedStream = 'all';
+
+        // 1. Sidebar Tab Swapping Navigation
+        function switchView(viewId, clickedElement) {
+            var views = document.querySelectorAll('.view-content');
+            for (var i = 0; i < views.length; i++) {
+                views[i].classList.remove('active-view');
+            }
+            var items = document.querySelectorAll('.nav-item');
+            for (var j = 0; j < items.length; j++) {
+                items[j].classList.remove('active');
+            }
+            document.getElementById('view-' + viewId).classList.add('active-view');
+            clickedElement.classList.add('active');
+        }
+
+        // 2. Specialty Quick-Filter Bubble Sorting
+        function filterDiscipline(discipline, clickedTab) {
+            currentSelectedStream = discipline;
+            var tabs = document.querySelectorAll('.tab-btn');
+            for (var i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove('active-tab');
+            }
+            clickedTab.classList.add('active-tab');
+            executeCombinedFilters();
+        }
+
+        // 3. Search Bar Live Key Filters
+        function searchMatrix() {
+            executeCombinedFilters();
+        }
+
+        // 4. Integrated Filter Execution System
+        function executeCombinedFilters() {
+            var searchInput = document.getElementById('matrix-search').value.toLowerCase();
+            var tableRows = document.getElementById('scenarios-table').getElementsByTagName('tbody')[0].getElementsByTagName('tr');
+            var matchCounter = 0;
+
+            for (var i = 0; i < tableRows.length; i++) {
+                var row = tableRows[i];
+                var rowDiscipline = row.getAttribute('data-discipline');
+                var textContent = row.textContent.toLowerCase();
+
+                var matchesStream = (currentSelectedStream === 'all' || rowDiscipline === currentSelectedStream);
+                var matchesSearch = (textContent.indexOf(searchInput) > -1);
+
+                if (matchesStream && matchesSearch) {
+                    row.style.display = "";
+                    matchCounter++;
+                } else {
+                    row.style.display = "none";
+                }
+            }
+
+            document.getElementById('count-loaded').innerText = matchCounter + " / 600 Cases";
+            var statusEl = document.getElementById('live-status');
+            if(searchInput.length > 0) {
+                statusEl.innerText = "● VECTOR STREAM FILTERED";
+                statusEl.style.color = "#3b82f6";
+                statusEl.style.background = "rgba(59, 130, 246, 0.1)";
+            } else {
+                statusEl.innerText = "● PLATFORM ENGINE ACTIVE";
+                statusEl.style.color = "#10b981";
+                statusEl.style.background = "rgba(16, 185, 129, 0.1)";
+            }
+        }
+
+        // 5. CHART INJECTION DATA MODULE (DUAL-COLUMN CONFIGURE)
+        function launchCase(id, discipline, tier, title, modifier, desc, vitals, labs, objectives) {
+            document.getElementById('modal-case-id').innerText = "CASE ACQUISITION VECTOR: " + id;
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-discipline').innerText = discipline;
+            document.getElementById('modal-tier').innerText = tier;
+            document.getElementById('modal-modifier').innerText = modifier;
+            document.getElementById('modal-desc').innerText = desc;
+            document.getElementById('modal-labs').innerText = labs;
+            document.getElementById('modal-objectives').innerText = objectives;
+
+            // Telemetry Vital Sign Pill Split Engine
+            var telemetryStack = document.getElementById('modal-vitals-stack');
+            telemetryStack.innerHTML = '';
+            var vitalsArray = vitals.split('|');
+            
+            vitalsArray.forEach(function(vitalItem) {
+                var breakPoint = vitalItem.split(':');
+                if(breakPoint.length === 2) {
+                    var pillRow = document.createElement('div');
+                    pillRow.className = 'vital-row-pill';
+                    pillRow.innerHTML = '<span>' + breakPoint[0].trim() + '</span><strong>' + breakPoint[1].trim() + '</strong>';
+                    telemetryStack.appendChild(pillRow);
+                }
+            });
+
+            // Trigger modal mask deployment
+            document.getElementById('case-modal').style.display = 'flex';
+        }
+
+        // Window Dismissal Triggers
+        function closeCase() {
+            document.getElementById('case-modal').style.display = 'none';
+        }
+
+        function closeCaseOutside(event) {
+            if (event.target.id === 'case-modal') {
+                closeCase();
+            }
+        }
+    </script>
+
+</body>
+</html>

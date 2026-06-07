@@ -1,38 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Clinical Scenario Library</title>
+    <style>
+        :root { --primary: #0f172a; --bg: #f8fafc; }
+        body { font-family: sans-serif; background: var(--bg); margin: 0; display: flex; }
+        .sidebar { width: 260px; background: var(--primary); color: white; height: 100vh; padding: 25px; position: fixed; }
+        .main { margin-left: 260px; padding: 40px; width: 100%; }
+        
+        /* Table & Search */
+        #search { width: 100%; padding: 12px; margin-bottom: 20px; border: 1px solid #cbd5e1; border-radius: 6px; }
+        table { width: 100%; background: white; border-collapse: collapse; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        th, td { padding: 16px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        tr:hover { background: #f1f5f9; cursor: pointer; }
+
+        /* Modal */
+        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
+        .m-box { background: white; width: 900px; height: 80vh; border-radius: 12px; display: flex; overflow: hidden; }
+        .m-left { flex: 2; padding: 40px; overflow-y: auto; }
+        .m-right { flex: 1; background: #f8fafc; padding: 40px; border-left: 1px solid #e2e8f0; }
+        textarea { width: 100%; height: 100px; margin: 10px 0; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar"><h2>SimuScribe</h2></div>
+<div class="main">
+    <input type="text" id="search" placeholder="Search by complaint or case code..." onkeyup="filter()">
+    <table id="matrix">
+        <thead><tr><th>Code</th><th>Chief Complaint</th></tr></thead>
+        <tbody></tbody>
+    </table>
+</div>
+
+<div id="modal" class="modal" onclick="this.style.display='none'">
+    <div class="m-box" onclick="event.stopPropagation()">
+        <div class="m-left">
+            <h2 id="m-title"></h2>
+            <h4>History of Present Illness</h4><p id="m-hpi"></p>
+            <textarea id="user-input" placeholder="Enter your assessment..."></textarea>
+            <button onclick="document.getElementById('answer').style.display='block'">Submit Assessment</button>
+        </div>
+        <div class="m-right" id="answer" style="display:none;">
+            <h3>Gold Standard</h3>
+            <p><strong>Assessment:</strong><br><span id="m-assessment"></span></p>
+        </div>
+    </div>
+</div>
+
 <script>
-    async function loadCases() {
-        const response = await fetch('simuscribe-curriculum.csv');
-        const text = await response.text();
+    fetch('simuscribe-curriculum.csv')
+    .then(res => res.text())
+    .then(text => {
+        const lines = text.split(/\r?\n/);
+        const headers = lines[0].split(',').map(h => h.trim());
+        const getIdx = (name) => headers.indexOf(name);
         
-        // Split rows, handling quotes properly
-        const rows = text.split(/\r?\n/).filter(row => row.length > 0);
-        const headers = rows[0].split(',').map(h => h.trim());
-
         const tbody = document.querySelector('#matrix tbody');
-        
-        // Loop through data rows
-        for (let i = 1; i < rows.length; i++) {
-            // Regex: split by comma but ignore commas inside double quotes
-            const cols = rows[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
-            if (!cols) continue;
-
-            // Map columns by header name
-            const get = (name) => {
-                const idx = headers.indexOf(name);
-                return cols[idx] ? cols[idx].replace(/^"|"$/g, '') : "N/A";
-            };
+        lines.slice(1).forEach(line => {
+            if(!line.trim()) return;
+            const cols = line.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+            if(!cols) return;
 
             const tr = document.createElement('tr');
-            tr.innerHTML = `<td>${get('case_code')}</td><td>${get('chief_complaint')}</td>`;
-            
+            tr.innerHTML = `<td>${cols[getIdx('case_code')]}</td><td>${cols[getIdx('chief_complaint')]}</td>`;
             tr.onclick = () => {
-                document.getElementById('m-title').innerText = get('chief_complaint');
-                document.getElementById('m-hpi').innerText = get('history_present_illness');
-                document.getElementById('m-assessment').innerText = get('soap_assessment');
-                document.getElementById('m-plan').innerText = get('soap_plan');
+                document.getElementById('m-title').innerText = cols[getIdx('chief_complaint')];
+                document.getElementById('m-hpi').innerText = cols[getIdx('history_present_illness')];
+                document.getElementById('m-assessment').innerText = cols[getIdx('soap_assessment')];
+                document.getElementById('answer').style.display = 'none';
                 document.getElementById('modal').style.display = 'flex';
             };
             tbody.appendChild(tr);
-        }
+        });
+    });
+
+    function filter() {
+        const query = document.getElementById('search').value.toLowerCase();
+        document.querySelectorAll('tbody tr').forEach(tr => {
+            tr.style.display = tr.innerText.toLowerCase().includes(query) ? '' : 'none';
+        });
     }
-    loadCases();
 </script>
+</body>
+</html>

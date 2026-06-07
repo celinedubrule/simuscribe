@@ -1,0 +1,15 @@
+{
+  "name": "simuscribe",
+  "version": "1.0.0",
+  "homepage": "https://username.github.io/simuscribe",
+  "dependencies": {
+    "react": "^18.0.0",
+    ...
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
+  }
+}

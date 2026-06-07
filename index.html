@@ -1,11 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>SimuScribe Dashboard</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background: #f8fafc; margin: 0; display: flex; }
+        .sidebar { width: 300px; background: #0f172a; color: white; height: 100vh; padding: 20px; position: fixed; overflow-y: auto; }
+        .main { margin-left: 300px; padding: 40px; width: 100%; }
+        .cat-title { color: #94a3b8; text-transform: uppercase; font-size: 0.75rem; font-weight: bold; margin: 20px 0 10px; border-bottom: 1px solid #334155; padding-bottom: 5px; }
+        .case-btn { display: block; width: 100%; padding: 10px; margin-bottom: 5px; background: #1e293b; color: #cbd5e1; border: none; border-radius: 4px; text-align: left; cursor: pointer; font-size: 0.9rem; }
+        .case-btn:hover { background: #3b82f6; color: white; }
+        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
+        .m-box { background: white; width: 800px; padding: 40px; border-radius: 12px; max-height: 80vh; overflow-y: auto; }
+    </style>
+</head>
+<body>
+
+<div class="sidebar" id="sidebar"><h2>Disciplines</h2></div>
+
+<div class="main">
+    <h1>Clinical Library</h1>
+    <p>Select a discipline on the left to see available scenarios.</p>
+</div>
+
+<div id="modal" class="modal" onclick="this.style.display='none'">
+    <div class="m-box" onclick="event.stopPropagation()">
+        <h2 id="m-title"></h2>
+        <h4>History of Present Illness</h4><p id="m-hpi"></p>
+        <h4>Assessment</h4><p id="m-assessment"></p>
+        <button onclick="document.getElementById('modal').style.display='none'">Close</button>
+    </div>
+</div>
+
 <script>
     fetch('simuscribe-curriculum.csv')
     .then(res => res.text())
     .then(text => {
         const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
-        const headers = rows[0].split(',');
-        
-        // Find column indexes safely
+        const headers = rows[0].split(',').map(h => h.trim());
         const idx = {
             disc: headers.indexOf('discipline'),
             cc: headers.indexOf('chief_complaint'),
@@ -16,28 +48,24 @@
         const sidebar = document.getElementById('sidebar');
         const grouped = {};
 
-        // Process rows and group by discipline
         rows.slice(1).forEach(row => {
             const cols = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
-            if(!cols || cols[idx.disc] === undefined) return;
+            if(!cols || !cols[idx.disc]) return;
             
             const disc = cols[idx.disc].trim();
             if(!grouped[disc]) grouped[disc] = [];
             grouped[disc].push(cols);
         });
 
-        // Build Sidebar: Only show Discipline headers and Complaint buttons
         for (let disc in grouped) {
             sidebar.innerHTML += `<div class="cat-title">${disc}</div>`;
             grouped[disc].forEach(cols => {
-                const complaint = cols[idx.cc] ? cols[idx.cc].replace(/"/g, '') : "No Complaint Listed";
+                const complaint = cols[idx.cc] ? cols[idx.cc].replace(/"/g, '') : "No Title";
                 const btn = document.createElement('button');
                 btn.className = 'case-btn';
                 btn.innerText = complaint;
-                
                 btn.onclick = () => {
                     document.getElementById('m-title').innerText = complaint;
-                    // Safety checks: Fallback to "Data not found" instead of "undefined"
                     document.getElementById('m-hpi').innerText = cols[idx.hpi] ? cols[idx.hpi].replace(/"/g, '') : "N/A";
                     document.getElementById('m-assessment').innerText = cols[idx.assessment] ? cols[idx.assessment].replace(/"/g, '') : "N/A";
                     document.getElementById('modal').style.display = 'flex';
@@ -47,3 +75,5 @@
         }
     });
 </script>
+</body>
+</html>

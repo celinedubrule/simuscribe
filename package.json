@@ -1,10 +1,11 @@
 {
   "name": "simuscribe",
   "version": "1.0.0",
-  "homepage": "https://celinedubrule.github.io/simuscribe",
+  "homepage": "https://celinedubrule.github.io/simuscribe/",
   "dependencies": {
-    "react": "^18.0.0",
-    ...
+    "papaparse": "^5.4.1",
+    "react-router-dom": "^6.x",
+    "swr": "^2.x"
   },
   "scripts": {
     "start": "react-scripts start",

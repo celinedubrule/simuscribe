@@ -2,45 +2,42 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Emergent Clinical Dashboard</title>
+    <title>Clinical Simulation Suite</title>
     <style>
-        :root { --sidebar-bg: #0f172a; --main-bg: #f8fafc; --border: #e2e8f0; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: var(--main-bg); margin: 0; display: flex; }
-        
-        /* Sidebar Navigation */
-        .sidebar { width: 300px; background: var(--sidebar-bg); color: white; height: 100vh; padding: 20px; position: fixed; overflow-y: auto; }
+        body { font-family: sans-serif; margin: 0; display: flex; background: #f8fafc; }
+        #sidebar { width: 300px; height: 100vh; background: #0f172a; color: white; position: fixed; overflow-y: auto; transition: 0.3s; }
         .main { margin-left: 300px; padding: 40px; width: 100%; }
-        .cat-title { color: #94a3b8; text-transform: uppercase; font-size: 0.7rem; letter-spacing: 1px; margin: 20px 0 10px; border-bottom: 1px solid #334155; }
-        .case-btn { display: block; width: 100%; padding: 10px; margin-bottom: 5px; background: #1e293b; color: #cbd5e1; border: none; border-radius: 4px; text-align: left; cursor: pointer; }
-        .case-btn:hover { background: #3b82f6; color: white; }
-
-        /* Emergent Split-Modal */
+        
+        /* Hierarchy Styling */
+        .tier-header { padding: 15px; font-weight: bold; background: #1e293b; color: #60a5fa; cursor: pointer; border-top: 1px solid #334155; }
+        .disc-header { padding: 10px 10px 10px 25px; font-size: 0.9rem; color: #94a3b8; cursor: pointer; }
+        .case-btn { display: block; width: 100%; padding: 8px 10px 8px 40px; background: none; border: none; color: #cbd5e1; text-align: left; cursor: pointer; }
+        .case-btn:hover { color: white; background: #334155; }
+        
         .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; }
-        .m-box { background: white; width: 950px; height: 80vh; border-radius: 8px; display: flex; overflow: hidden; }
-        .m-left { flex: 2; padding: 40px; overflow-y: auto; border-right: 1px solid var(--border); }
-        .m-right { flex: 1; background: #f8fafc; padding: 40px; overflow-y: auto; }
-        h4 { margin-top: 20px; color: #475569; }
+        .m-box { background: white; width: 900px; height: 80vh; border-radius: 12px; display: flex; overflow: hidden; }
+        .m-left { flex: 2; padding: 40px; overflow-y: auto; }
+        .m-right { flex: 1; background: #f8fafc; padding: 40px; border-left: 1px solid #e2e8f0; }
     </style>
 </head>
 <body>
 
-<div class="sidebar" id="sidebar"><h2>Emergent Suite</h2></div>
+<div id="sidebar"></div>
 
 <div class="main">
     <h1>Clinical Library</h1>
-    <p>Select a scenario from the sidebar to begin.</p>
+    <p>Use the nested menu to select your Tier, Discipline, and Case.</p>
 </div>
 
 <div id="modal" class="modal" onclick="this.style.display='none'">
     <div class="m-box" onclick="event.stopPropagation()">
         <div class="m-left">
             <h2 id="m-title"></h2>
-            <h4>History of Present Illness</h4><p id="m-hpi"></p>
+            <h4>HPI</h4><p id="m-hpi"></p>
             <h4>Assessment</h4><p id="m-assessment"></p>
         </div>
         <div class="m-right">
-            <h3>Patient Vitals</h3>
-            <div id="m-vitals"></div>
+            <h3>Vitals</h3><p id="m-vitals"></p>
             <h4>Objectives</h4><p id="m-obj"></p>
         </div>
     </div>
@@ -50,45 +47,42 @@
     fetch('simuscribe-curriculum.csv')
     .then(res => res.text())
     .then(text => {
-        const rows = text.split(/\r?\n/).filter(r => r.trim() !== "");
-        const headers = rows[0].split(',').map(h => h.trim());
-        const idx = {
-            disc: headers.indexOf('discipline'),
-            cc: headers.indexOf('chief_complaint'),
-            hpi: headers.indexOf('history_present_illness'),
-            assessment: headers.indexOf('soap_assessment'),
-            vitals: headers.indexOf('vitals_BP'),
-            obj: headers.indexOf('learning_objectives')
-        };
-
-        const sidebar = document.getElementById('sidebar');
-        const grouped = {};
-
-        rows.slice(1).forEach(row => {
+        const rows = text.split(/\r?\n/).slice(1);
+        const headers = text.split(/\r?\n/)[0].split(',');
+        const getIdx = (name) => headers.indexOf(name);
+        
+        // Data Structure: { Tier: { Discipline: [Cases] } }
+        const tree = {};
+        rows.forEach(row => {
             const cols = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
-            if(!cols || !cols[idx.disc]) return;
-            const disc = cols[idx.disc].trim();
-            if(!grouped[disc]) grouped[disc] = [];
-            grouped[disc].push(cols);
+            if(!cols) return;
+            const tier = cols[getIdx('tier')] || "Uncategorized";
+            const disc = cols[getIdx('discipline')] || "General";
+            if(!tree[tier]) tree[tier] = {};
+            if(!tree[tier][disc]) tree[tier][disc] = [];
+            tree[tier][disc].push(cols);
         });
 
-        for (let disc in grouped) {
-            sidebar.innerHTML += `<div class="cat-title">${disc}</div>`;
-            grouped[disc].forEach(cols => {
-                const complaint = cols[idx.cc] ? cols[idx.cc].replace(/"/g, '') : "Case";
-                const btn = document.createElement('button');
-                btn.className = 'case-btn';
-                btn.innerText = complaint;
-                btn.onclick = () => {
-                    document.getElementById('m-title').innerText = complaint;
-                    document.getElementById('m-hpi').innerText = cols[idx.hpi] ? cols[idx.hpi].replace(/"/g, '') : "N/A";
-                    document.getElementById('m-assessment').innerText = cols[idx.assessment] ? cols[idx.assessment].replace(/"/g, '') : "N/A";
-                    document.getElementById('m-vitals').innerText = cols[idx.vitals] ? cols[idx.vitals].replace(/"/g, '') : "N/A";
-                    document.getElementById('m-obj').innerText = cols[idx.obj] ? cols[idx.obj].replace(/"/g, '') : "N/A";
-                    document.getElementById('modal').style.display = 'flex';
-                };
-                sidebar.appendChild(btn);
-            });
+        const sidebar = document.getElementById('sidebar');
+        for (let tier in tree) {
+            sidebar.innerHTML += `<div class="tier-header">${tier}</div>`;
+            for (let disc in tree[tier]) {
+                sidebar.innerHTML += `<div class="disc-header">${disc}</div>`;
+                tree[tier][disc].forEach(cols => {
+                    const btn = document.createElement('button');
+                    btn.className = 'case-btn';
+                    btn.innerText = cols[getIdx('chief_complaint')];
+                    btn.onclick = () => {
+                        document.getElementById('m-title').innerText = cols[getIdx('chief_complaint')];
+                        document.getElementById('m-hpi').innerText = cols[getIdx('history_present_illness')].replace(/"/g, '');
+                        document.getElementById('m-assessment').innerText = cols[getIdx('soap_assessment')].replace(/"/g, '');
+                        document.getElementById('m-vitals').innerText = cols[getIdx('vitals_BP')];
+                        document.getElementById('m-obj').innerText = cols[getIdx('learning_objectives')].replace(/"/g, '');
+                        document.getElementById('modal').style.display = 'flex';
+                    };
+                    sidebar.appendChild(btn);
+                });
+            }
         }
     });
 </script>

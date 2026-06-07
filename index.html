@@ -1,92 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>SimuScribe Dashboard</title>
-    <style>
-        :root { --nav: #1e293b; --accent: #2563eb; --bg: #f8fafc; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); margin: 0; display: flex; }
-        .sidebar { width: 260px; background: var(--nav); color: white; height: 100vh; padding: 25px; position: fixed; }
-        .main { margin-left: 260px; padding: 40px; width: 100%; }
-        
-        .controls { display: flex; gap: 15px; margin-bottom: 25px; }
-        input { padding: 12px; width: 300px; border: 1px solid #cbd5e1; border-radius: 6px; }
-        
-        table { width: 100%; background: white; border-collapse: collapse; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1); }
-        th { background: #f1f5f9; padding: 16px; text-align: left; color: #475569; }
-        td { padding: 16px; border-bottom: 1px solid #f1f5f9; cursor: pointer; transition: 0.2s; }
-        tr:hover { background: #f0f9ff; }
-        
-        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); backdrop-filter: blur(4px); justify-content: center; align-items: center; }
-        .m-box { background: white; width: 850px; height: 75vh; border-radius: 16px; display: flex; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .m-left { flex: 2; padding: 40px; overflow-y: auto; }
-        .m-right { flex: 1; background: #f8fafc; padding: 40px; border-left: 1px solid #e2e8f0; }
-    </style>
-</head>
-<body>
-
-<div class="sidebar">
-    <h2>SimuScribe</h2>
-    <p style="opacity: 0.7;">Clinical Scenario Engine</p>
-</div>
-
-<div class="main">
-    <div class="controls">
-        <input type="text" id="search" placeholder="Search cases (e.g., 'Anaphylaxis')..." onkeyup="filterTable()">
-    </div>
-    <table id="matrix">
-        <thead><tr><th>Case Code</th><th>Chief Complaint</th><th>Discipline</th></tr></thead>
-        <tbody></tbody>
-    </table>
-</div>
-
-<div id="modal" class="modal" onclick="this.style.display='none'">
-    <div class="m-box" onclick="event.stopPropagation()">
-        <div class="m-left">
-            <h2 id="m-title"></h2>
-            <p><strong>HPI:</strong> <span id="m-hpi"></span></p>
-            <textarea id="user-input" style="width:100%; height:100px;" placeholder="Document your assessment..."></textarea>
-            <button onclick="document.getElementById('answer').style.display='block'">Submit</button>
-        </div>
-        <div class="m-right" id="answer" style="display:none;">
-            <h3>Gold Standard</h3>
-            <p id="m-assessment"></p>
-        </div>
-    </div>
-</div>
-
 <script>
-    let rawData = [];
     fetch('simuscribe-curriculum.csv')
         .then(res => res.text())
         .then(text => {
-            const lines = text.split('\n');
-            const headers = lines[0].split(',');
+            // Split into lines
+            const lines = text.split(/\r?\n/);
+            const headers = lines[0].split(',').map(h => h.trim());
+            
+            // This function finds the column index by the header name
+            const getCol = (cols, name) => {
+                const idx = headers.indexOf(name);
+                return cols[idx] || "N/A"; // Returns "N/A" instead of "undefined"
+            };
+
             const tbody = document.querySelector('#matrix tbody');
             
-            lines.slice(1).forEach((line, i) => {
-                const cols = line.match(/(".*?"|[^",]+)/g);
-                if (!cols) return;
-                rawData.push(cols);
+            // Process rows
+            for (let i = 1; i < lines.length; i++) {
+                if (!lines[i].trim()) continue;
+                // Complex regex to handle commas inside quoted clinical notes
+                const cols = lines[i].match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g);
+                if (!cols) continue;
+
                 const tr = document.createElement('tr');
-                tr.innerHTML = `<td>${cols[0]}</td><td>${cols[6]}</td><td>${cols[1]}</td>`;
+                tr.innerHTML = `<td>${getCol(cols, 'case_code')}</td><td>${getCol(cols, 'chief_complaint')}</td>`;
+                
                 tr.onclick = () => {
-                    document.getElementById('m-title').innerText = cols[6];
-                    document.getElementById('m-hpi').innerText = cols[13];
-                    document.getElementById('m-assessment').innerText = cols[25];
+                    document.getElementById('m-title').innerText = getCol(cols, 'chief_complaint');
+                    document.getElementById('m-hpi').innerText = getCol(cols, 'history_present_illness');
+                    document.getElementById('m-assessment').innerText = getCol(cols, 'soap_assessment');
+                    document.getElementById('m-plan').innerText = getCol(cols, 'soap_plan');
                     document.getElementById('answer').style.display = 'none';
                     document.getElementById('modal').style.display = 'flex';
                 };
                 tbody.appendChild(tr);
-            });
+            }
         });
-
-    function filterTable() {
-        const query = document.getElementById('search').value.toLowerCase();
-        document.querySelectorAll('#matrix tbody tr').forEach(tr => {
-            tr.style.display = tr.innerText.toLowerCase().includes(query) ? '' : 'none';
-        });
-    }
 </script>
-</body>
-</html>

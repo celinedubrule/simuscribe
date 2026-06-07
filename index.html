@@ -2,27 +2,58 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Test Page</title>
+    <title>Clinical Matrix Suite</title>
+    <style>
+        body { font-family: -apple-system, sans-serif; background: #f8fafc; margin: 0; display: flex; }
+        .sidebar { width: 260px; background: #1e293b; color: white; height: 100vh; padding: 20px; position: fixed; }
+        .main-content { margin-left: 260px; padding: 40px; width: 100%; }
+        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        th { background: #f1f5f9; text-align: left; padding: 15px; }
+        td { padding: 15px; border-bottom: 1px solid #e2e8f0; cursor: pointer; }
+        td:hover { background: #f1f5f9; }
+        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; }
+        .modal-container { background: white; width: 800px; height: 70vh; padding: 40px; border-radius: 12px; overflow-y: auto; }
+    </style>
 </head>
 <body>
-    <h1>Site is Loading...</h1>
+
+<div class="sidebar"><h2>Clinical Matrix</h2></div>
+<div class="main-content">
+    <h1>Active Scenario Library</h1>
     <table id="matrix">
-        <thead><tr><th>ID</th><th>Title</th></tr></thead>
+        <thead><tr><th>ID</th><th>Scenario Title</th></tr></thead>
         <tbody></tbody>
     </table>
+</div>
 
-    <script>
-        console.log("Script is running!"); // Check the console for this!
-        const data = [
-            { "id": "TEST", "title": "Connection Test" }
-        ];
-        const tbody = document.querySelector('#matrix tbody');
-        data.forEach(c => {
-            const tr = document.createElement('tr');
-            tr.innerHTML = `<td>${c.id}</td><td>${c.title}</td>`;
-            tbody.appendChild(tr);
-        });
-        alert("Script finished running!");
-    </script>
+<div id="modal" class="modal" onclick="this.style.display='none'">
+    <div class="modal-container" onclick="event.stopPropagation()">
+        <h2 id="m-title"></h2>
+        <p><strong>HPI:</strong> <span id="m-hpi"></span></p>
+        <p><strong>Assessment:</strong> <span id="m-ap"></span></p>
+    </div>
+</div>
+
+<script>
+    // Data hard-coded to guarantee 100% success
+    const data = [
+        { "id": "IM-001", "title": "Acute Chest Pain", "subjective": { "hpi": "85M, crushing substernal chest pain." }, "assessment": "ACS" },
+        { "id": "EM-002", "title": "Pediatric Asthma", "subjective": { "hpi": "6F, wheezing, dyspnea." }, "assessment": "Status Asthmaticus" },
+        { "id": "PED-003", "title": "Febrile Seizure", "subjective": { "hpi": "18moM, tonic-clonic movement." }, "assessment": "Simple Febrile Seizure" }
+    ];
+
+    const tbody = document.querySelector('#matrix tbody');
+    data.forEach(c => {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `<td>${c.id}</td><td>${c.title}</td>`;
+        tr.onclick = () => {
+            document.getElementById('m-title').innerText = c.title;
+            document.getElementById('m-hpi').innerText = c.subjective.hpi;
+            document.getElementById('m-ap').innerText = c.assessment;
+            document.getElementById('modal').style.display = 'flex';
+        };
+        tbody.appendChild(tr);
+    });
+</script>
 </body>
 </html>

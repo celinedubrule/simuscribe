@@ -2,44 +2,57 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Clinical Matrix Suite</title>
+    <title>Emergent Clinical Dashboard</title>
     <style>
-        body { font-family: -apple-system, sans-serif; background: #f8fafc; margin: 0; display: flex; }
-        .sidebar { width: 260px; background: #1e293b; color: white; height: 100vh; padding: 20px; position: fixed; }
-        .main-content { margin-left: 260px; padding: 40px; width: 100%; }
-        table { width: 100%; border-collapse: collapse; background: white; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-        th { background: #f1f5f9; text-align: left; padding: 15px; }
-        td { padding: 15px; border-bottom: 1px solid #e2e8f0; cursor: pointer; }
-        td:hover { background: #f1f5f9; }
-        .modal { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); justify-content: center; align-items: center; z-index: 1000; }
-        .modal-container { background: white; width: 800px; height: 70vh; padding: 40px; border-radius: 12px; overflow-y: auto; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f1f5f9; margin: 0; display: flex; }
+        .sidebar { width: 250px; background: #0f172a; color: white; height: 100vh; padding: 20px; position: fixed; }
+        .main-content { margin-left: 250px; padding: 40px; width: 100%; }
+        
+        /* Table Styles */
+        table { width: 100%; background: white; border-radius: 8px; border-collapse: collapse; box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
+        td { padding: 16px; border-bottom: 1px solid #e2e8f0; cursor: pointer; }
+        tr:hover { background: #f8fafc; }
+
+        /* Emergent Modal Structure */
+        .modal-overlay { display: none; position: fixed; top:0; left:0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); justify-content: center; align-items: center; }
+        .modal-box { background: white; width: 900px; height: 75vh; border-radius: 8px; display: flex; overflow: hidden; }
+        .modal-left { flex: 2; padding: 40px; overflow-y: auto; }
+        .modal-right { flex: 1; background: #f8fafc; border-left: 1px solid #e2e8f0; padding: 40px; }
+        .vital-box { background: white; border: 1px solid #cbd5e1; padding: 15px; border-radius: 6px; margin-bottom: 20px; }
     </style>
 </head>
 <body>
 
-<div class="sidebar"><h2>Clinical Matrix</h2></div>
+<div class="sidebar"><h2>Emergent Suite</h2></div>
 <div class="main-content">
-    <h1>Active Scenario Library</h1>
+    <h1>Scenario Matrix</h1>
     <table id="matrix">
-        <thead><tr><th>ID</th><th>Scenario Title</th></tr></thead>
+        <thead><tr><th>Case ID</th><th>Scenario Title</th></tr></thead>
         <tbody></tbody>
     </table>
 </div>
 
-<div id="modal" class="modal" onclick="this.style.display='none'">
-    <div class="modal-container" onclick="event.stopPropagation()">
-        <h2 id="m-title"></h2>
-        <p><strong>HPI:</strong> <span id="m-hpi"></span></p>
-        <p><strong>Assessment:</strong> <span id="m-ap"></span></p>
+<div id="modal" class="modal-overlay" onclick="this.style.display='none'">
+    <div class="modal-box" onclick="event.stopPropagation()">
+        <div class="modal-left">
+            <h2 id="m-title"></h2>
+            <div style="margin-top:20px;">
+                <strong>History of Present Illness:</strong><p id="m-hpi"></p>
+                <strong>Assessment:</strong><p id="m-ap"></p>
+            </div>
+        </div>
+        <div class="modal-right">
+            <h3>Patient Vitals</h3>
+            <div class="vital-box" id="m-vitals"></div>
+            <strong>Learning Objectives:</strong><p id="m-obj"></p>
+        </div>
     </div>
 </div>
 
 <script>
-    // Data hard-coded to guarantee 100% success
     const data = [
-        { "id": "IM-001", "title": "Acute Chest Pain", "subjective": { "hpi": "85M, crushing substernal chest pain." }, "assessment": "ACS" },
-        { "id": "EM-002", "title": "Pediatric Asthma", "subjective": { "hpi": "6F, wheezing, dyspnea." }, "assessment": "Status Asthmaticus" },
-        { "id": "PED-003", "title": "Febrile Seizure", "subjective": { "hpi": "18moM, tonic-clonic movement." }, "assessment": "Simple Febrile Seizure" }
+        { "id": "IM-001", "title": "Acute Chest Pain", "subjective": { "hpi": "85M, crushing chest pain." }, "assessment": "ACS", "objective": { "vitals": "BP 140/90, HR 95, SpO2 96%" }, "learningObjectives": "STEMI identification" },
+        { "id": "EM-002", "title": "Pediatric Asthma", "subjective": { "hpi": "6F, wheezing, dyspnea." }, "assessment": "Status Asthmaticus", "objective": { "vitals": "BP 100/60, HR 120, SpO2 92%" }, "learningObjectives": "Airway management" }
     ];
 
     const tbody = document.querySelector('#matrix tbody');
@@ -50,6 +63,8 @@
             document.getElementById('m-title').innerText = c.title;
             document.getElementById('m-hpi').innerText = c.subjective.hpi;
             document.getElementById('m-ap').innerText = c.assessment;
+            document.getElementById('m-vitals').innerText = c.objective.vitals;
+            document.getElementById('m-obj').innerText = c.learningObjectives;
             document.getElementById('modal').style.display = 'flex';
         };
         tbody.appendChild(tr);

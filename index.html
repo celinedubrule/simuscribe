@@ -1,0 +1,201 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SimuScribe | Accredited Clinical Simulation Curriculum</title>
+    <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --accent: #3b82f6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+        header {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 4rem 2rem 2rem 2rem;
+            text-align: center;
+        }
+        .badge {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--accent);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            margin: 1.5rem 0 1rem 0;
+            letter-spacing: -0.02em;
+        }
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            max-width: 700px;
+            margin: 0 auto 2.5rem auto;
+        }
+        .cta-group {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover {
+            background-color: #2563eb;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--text-main);
+            border: 1px solid #475569;
+        }
+        .btn-secondary:hover {
+            background-color: rgba(255,255,255,0.05);
+        }
+        .matrix-container {
+            max-width: 1100px;
+            margin: 4rem auto;
+            padding: 0 2rem;
+        }
+        .matrix-header {
+            border-bottom: 1px solid #334155;
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border: 1px solid #334155;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
+        }
+        .card h3 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        .count {
+            color: var(--accent);
+            font-weight: 700;
+        }
+        .tier-list {
+            margin: 1rem 0 0 0;
+            padding: 0;
+            list-style: none;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        .tier-list li {
+            margin-bottom: 0.25rem;
+            display: flex;
+            justify-content: space-between;
+        }
+        footer {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            border-top: 1px solid #334155;
+            margin-top: 4rem;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <span class="badge">B2B Curriculum Licensing</span>
+        <h1>SimuScribe Master Engine</h1>
+        <p class="subtitle">A mathematically balanced matrix of 600 accredited-grade clinical simulation scenarios designed to train diagnostic precision and charting efficiency.</p>
+        <div class="cta-group">
+            <a href="https://simuscribe-cases.emergent.host" class="btn btn-primary" target="_blank">Launch Admin Dashboard</a>
+            <a href="mailto:celine.bayliss@example.com?subject=SimuScribe%20Demo%20Request" class="btn btn-secondary">Request Institutional Demo</a>
+        </div>
+    </header>
+
+    <section class="matrix-container">
+        <div class="matrix-header">
+            <h2>The 600-Case Distribution Blueprint</h2>
+            <p style="color: var(--text-muted);">Fully structured across 5 primary disciplines, 3 progression tiers, and 4 behavioral modifiers.</p>
+        </div>
+        
+        <div class="grid">
+            <div class="card">
+                <h3><span>Internal Medicine</span> <span class="count">200 Cases</span></h3>
+                <ul class="tier-list">
+                    <li><span>Tier 1 (Foundation)</span> <span>80</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>90</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>30</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3><span>Emergency Medicine</span> <span class="count">150 Cases</span></h3>
+                <ul class="tier-list">
+                    <li><span>Tier 1 (Foundation)</span> <span>60</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>67</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>23</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3><span>Pediatrics</span> <span class="count">100 Cases</span></h3>
+                <ul class="tier-list">
+                    <li><span>Tier 1 (Foundation)</span> <span>40</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>45</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>15</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3><span>Obstetrics & Gynecology</span> <span class="count">75 Cases</span></h3>
+                <ul class="tier-list">
+                    <li><span>Tier 1 (Foundation)</span> <span>30</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>34</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>11</span></li>
+                </ul>
+            </div>
+            <div class="card">
+                <h3><span>Surgery & Orthopedics</span> <span class="count">75 Cases</span></h3>
+                <ul class="tier-list">
+                    <li><span>Tier 1 (Foundation)</span> <span>30</span></li>
+                    <li><span>Tier 2 (Intermediate)</span> <span>34</span></li>
+                    <li><span>Tier 3 (Advanced)</span> <span>11</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 SimuScribe. Built for seamless LMS integration (Canvas, Moodle, Blackboard).
+    </footer>
+
+</body>
+</html>
+

@@ -1,6 +1,6 @@
 let curriculumData = [];
 
-// Initialize data once
+// Load data immediately on page load
 Papa.parse('simuscribe-curriculum.csv', {
     download: true, header: true,
     complete: (results) => { curriculumData = results.data; }
@@ -9,11 +9,11 @@ Papa.parse('simuscribe-curriculum.csv', {
 function loadDashboard() {
     const view = document.getElementById('app-view');
     view.innerHTML = `
-        <button onclick="location.reload()" class="btn" style="background:#475569; color:white;">← Back Home</button>
+        <button onclick="location.reload()" class="btn btn-secondary">← Back to Overview</button>
         <div class="card">
             <h2>Case Library</h2>
             <table>
-                <thead><tr><th>Code</th><th>Discipline</th><th>Complaint</th></tr></thead>
+                <thead><tr><th>Code</th><th>Discipline</th><th>Chief Complaint</th></tr></thead>
                 <tbody>
                     ${curriculumData.map((row, i) => row.case_code ? `
                         <tr onclick="viewCase(${i})">
@@ -32,7 +32,7 @@ function viewCase(index) {
     const row = curriculumData[index];
     const view = document.getElementById('app-view');
     view.innerHTML = `
-        <button onclick="loadDashboard()" class="btn" style="background:#475569; color:white;">← Back to Library</button>
+        <button onclick="loadDashboard()" class="btn btn-secondary">← Back to Library</button>
         <div class="card">
             <h1>${row.chief_complaint}</h1>
             <p><strong>Discipline:</strong> ${row.discipline} | <strong>Tier:</strong> ${row.tier}</p>
